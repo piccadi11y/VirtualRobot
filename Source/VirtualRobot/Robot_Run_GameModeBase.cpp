@@ -25,4 +25,42 @@ void ARobot_Run_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidge
 	}
 }
 
+void ARobot_Run_GameModeBase::File_Read() {
+	
+}
 
+void ARobot_Run_GameModeBase::File_Write(FString dir, FString fileName, FString txt) {
+	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
+	FString abs = dir + "/" + fileName;
+	bool x{ false };
+	if (PF.DirectoryExists(*dir)) {
+		FFileHelper::SaveStringToFile(txt, *abs);
+		/*if (x || !PF.FileExists(*abs)) {
+			FFileHelper::SaveStringToFile(txt, *abs);
+		}*/
+	}
+	
+}
+
+void ARobot_Run_GameModeBase::File_Write_arr(FString dir, FString fileName, TArray<FString> txt) {
+	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
+	FString abs = dir + "/" + fileName;
+	bool x{ false };
+	if (PF.DirectoryExists(*dir)) {
+		FFileHelper::SaveStringArrayToFile(txt, *abs);
+		/*if (x || !PF.FileExists(*abs)) {
+			FFileHelper::SaveStringArrayToFile(txt, *abs);
+		}*/
+	}
+
+}
+
+bool ARobot_Run_GameModeBase::VerifyOrCreateDirectory(const FString& TestDir) const {
+	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
+
+	if (!PF.DirectoryExists(*TestDir)) {
+		PF.CreateDirectory(*TestDir);
+		if (!PF.DirectoryExists(*TestDir)) return false;
+	}
+	return true;
+}
