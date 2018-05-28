@@ -6,10 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "Blueprint/UserWidget.h"
 #include "Engine.h"
-
-#include "FileHelper.h"
-#include "PlatformFile.h"
-
+#include "FileInterface.h"
 #include "Robot_Run_GameModeBase.generated.h"
 
 /**
@@ -30,7 +27,7 @@ public:
 		void File_Write(FString dir, FString fileName, FString txt);
 	UFUNCTION(BlueprintCallable, Category = File_Manipulation)
 		void File_Write_arr(FString dir, FString fileName, TArray<FString> txt);
-	/** Read array to file. */
+	/** Read array from file. */
 	UFUNCTION(BlueprintCallable, Category = File_Manipulation)
 		void File_Read();
 
@@ -48,6 +45,8 @@ protected:
 	/** The widget instance that we are currently using as our menu. */
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
+
+		FileInterface* FI;
 	
 	
 };
