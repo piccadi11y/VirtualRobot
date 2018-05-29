@@ -17,13 +17,12 @@ public:
 	~FileInterface();
 
 	/** Write array to file. */
-		void File_Write(FString& dir, FString& fileName, FString& txt);
-		void File_Write_arr(FString& dir, FString& fileName, TArray<FString> txt);
+		void File_Write(FString& dir, FString& fileName, TArray<FString> txt);
 	/** Read array from file. */
-		void File_Read();
+		TArray<FString> File_Read(FString& dir, FString& fileName);
 
 		bool VerifyOrCreateDirectory(const FString& TestDir) const;
 
 protected:
-	IPlatformFile* PlatformFile;
+	
 };

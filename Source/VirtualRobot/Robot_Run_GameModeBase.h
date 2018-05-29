@@ -23,16 +23,14 @@ public:
 		void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 	
 	/** Write array to file. */
-	UFUNCTION(BlueprintCallable, Category = File_Manipulation)
-		void File_Write(FString dir, FString fileName, FString txt);
-	UFUNCTION(BlueprintCallable, Category = File_Manipulation)
-		void File_Write_arr(FString dir, FString fileName, TArray<FString> txt);
+	UFUNCTION(BlueprintCallable, Category = FileManipulation)
+		void File_Write(FString dir, FString fileName, TArray<FString> txt);
 	/** Read array from file. */
-	UFUNCTION(BlueprintCallable, Category = File_Manipulation)
-		void File_Read();
+	UFUNCTION(BlueprintCallable, Category = FileManipulation)
+		TArray<FString> File_Read(FString dir, FString fileName);
 
-	UFUNCTION(BlueprintCallable)
-		bool VerifyOrCreateDirectory(const FString& TestDir) const;
+	UFUNCTION(BlueprintCallable, Category = FileManipulation)
+		bool VerifyOrCreateDirectory(FString TestDir);
 
 protected:
 	/** Called when the game starts. */
@@ -46,6 +44,7 @@ protected:
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
 
+	/** The file interface we will use for loading and saving robots/code. */
 		FileInterface* FI;
 	
 	

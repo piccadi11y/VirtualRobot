@@ -25,18 +25,16 @@ void ARobot_Run_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidge
 	}
 }
 
-void ARobot_Run_GameModeBase::File_Read() {
-	FI->File_Read();
+TArray<FString> ARobot_Run_GameModeBase::File_Read(FString dir, FString fileName) {
+	return FI->File_Read(dir, fileName);
 }
 
-void ARobot_Run_GameModeBase::File_Write(FString dir, FString fileName, FString txt) {
+
+
+void ARobot_Run_GameModeBase::File_Write(FString dir, FString fileName, TArray<FString> txt) {
 	FI->File_Write(dir, fileName, txt);
 }
 
-void ARobot_Run_GameModeBase::File_Write_arr(FString dir, FString fileName, TArray<FString> txt) {
-	FI->File_Write_arr(dir, fileName, txt);
-}
-
-bool ARobot_Run_GameModeBase::VerifyOrCreateDirectory(const FString& TestDir) const {
+bool ARobot_Run_GameModeBase::VerifyOrCreateDirectory(FString TestDir) {
 	return FI->VerifyOrCreateDirectory(TestDir);
 }
