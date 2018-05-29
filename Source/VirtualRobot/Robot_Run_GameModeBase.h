@@ -22,19 +22,35 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Menus)
 		void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 	
-	/** Write array to file. */
-	UFUNCTION(BlueprintCallable, Category = FileManipulation)
-		void File_Write(FString dir, FString fileName, TArray<FString> txt);
-	/** Read array from file. */
-	UFUNCTION(BlueprintCallable, Category = FileManipulation)
-		TArray<FString> File_Read(FString dir, FString fileName);
 
-	UFUNCTION(BlueprintCallable, Category = FileManipulation)
-		bool VerifyOrCreateDirectory(FString TestDir);
+	/** Load Robot files. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		void LoadAvailableFiles_Robot();
+	/** Load Program files. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		void LoadAvailableFiles_Program();
+	/** Getter of the Robot files list. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		TArray<FString> GetAvailableFiles_Robot();
+	/** Getter of the Program files list. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		TArray<FString> GetAvailableFiles_Program();
 
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
+
+
+	// please notice the fact an object of type 'FileInterface' is never created, the code just works :)
+	/** The file interface we will use for loading and saving robots/code. */
+	FileInterface* FI;
+	
+	/** List of all robot files that can be loaded. */
+	TArray<FString> FilesAvailable_Robot;
+
+	/** List of all program files that can be loaded. */
+	TArray<FString> FilesAvailable_Program;
+
 
 	/** The widget class we will use as our menu widget when the program start. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Menus)
@@ -43,9 +59,4 @@ protected:
 	/** The widget instance that we are currently using as our menu. */
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
-
-	/** The file interface we will use for loading and saving robots/code. */
-		FileInterface* FI;
-	
-	
 };

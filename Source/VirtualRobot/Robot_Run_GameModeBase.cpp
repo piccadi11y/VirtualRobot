@@ -5,6 +5,10 @@
 void ARobot_Run_GameModeBase::BeginPlay() {
 	Super::BeginPlay();
 	
+	/* Load a list of the available robot files. */
+	LoadAvailableFiles_Robot();
+	/* Load a list of the available program files.*/
+	LoadAvailableFiles_Program();
 	/* On load, call function to change widget, passing through our starting widget. */
 	ChangeMenuWidget(StartingWidgetClass);
 }
@@ -25,16 +29,22 @@ void ARobot_Run_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidge
 	}
 }
 
-TArray<FString> ARobot_Run_GameModeBase::File_Read(FString dir, FString fileName) {
-	return FI->File_Read(dir, fileName);
+void ARobot_Run_GameModeBase::LoadAvailableFiles_Robot() {
+	/* Sets the robot files availble to the results of the file interface's search. */
+	FilesAvailable_Robot = FI->LoadFileList_Robot();
 }
 
-
-
-void ARobot_Run_GameModeBase::File_Write(FString dir, FString fileName, TArray<FString> txt) {
-	FI->File_Write(dir, fileName, txt);
+void ARobot_Run_GameModeBase::LoadAvailableFiles_Program() {
+	/* Sets the program files availble to the results of the file interface's search. */
+	FilesAvailable_Program = FI->LoadFileList_Program();
 }
 
-bool ARobot_Run_GameModeBase::VerifyOrCreateDirectory(FString TestDir) {
-	return FI->VerifyOrCreateDirectory(TestDir);
+TArray<FString> ARobot_Run_GameModeBase::GetAvailableFiles_Robot() {
+	/* Returns the list of available robot files to caller. */
+	return FilesAvailable_Robot;
+}
+
+TArray<FString> ARobot_Run_GameModeBase::GetAvailableFiles_Program() {
+	/* Returns the list of available robot files to caller. */
+	return FilesAvailable_Program;
 }

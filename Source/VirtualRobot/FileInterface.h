@@ -5,7 +5,13 @@
 #include "CoreMinimal.h"
 #include "FileHelper.h"
 #include "PlatformFile.h"
-#include "PlatformFilemanager.h"
+#include "FileManagerGeneric.h"
+
+#define BASE_PATH "C:/VirtualRobot"
+#define RELATIVE_PATH_ROBOTS "Robots"
+#define RELATIVE_PATH_PROGRAMS "Programs"
+#define ROBOT_EXTENSION ".rbt"
+#define PROGRAM_EXTENSION ".prgm"
 
 /**
  * 
@@ -13,16 +19,19 @@
 class VIRTUALROBOT_API FileInterface
 {
 public:
-	FileInterface();
-	~FileInterface();
 
-	/** Write array to file. */
+		/** Write array to file. */
 		void File_Write(FString& dir, FString& fileName, TArray<FString> txt);
-	/** Read array from file. */
+		/** Read array from file. */
 		TArray<FString> File_Read(FString& dir, FString& fileName);
-
+		/** Checks for existing dir, if doesn't exist, create it. */
 		bool VerifyOrCreateDirectory(const FString& TestDir) const;
 
+
+		/** Loads robot files, returns the file names in an array of FStrings. */
+		TArray<FString> LoadFileList_Robot();
+		/** Loads list of program files, returns the file names in an array of FStrings. */
+		TArray<FString> LoadFileList_Program();
 protected:
 	
 };
