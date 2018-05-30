@@ -6,10 +6,10 @@ void ARobot_Program_GameModeBase::BeginPlay() {
 	Super::BeginPlay();
 
 	/* On load, call function to change widget, passing through our starting widget. */
-	ChangeMenuWidget(StartingWidgetClass);
+	ChangeRobotProgrammingWidget(StartingWidgetClass);
 }
 
-void ARobot_Program_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass) {
+void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUserWidget> NewWidgetClass) {
 	/* If a widget exists, remove it from the screen and clear the pointer. */
 	if (CurrentWidget != nullptr) {
 		CurrentWidget->RemoveFromViewport();
