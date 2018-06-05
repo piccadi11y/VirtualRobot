@@ -26,6 +26,8 @@ public:
 		TArray<FString> File_Read(FString& dir, FString& fileName);
 		/** Checks for existing dir, if doesn't exist, create it. */
 		bool VerifyOrCreateDirectory(const FString& TestDir) const;
+		/** Checks for existing default dir, if doesn't exist, create it. */
+		bool VerifyOrCreateDefaultDirectories() const;
 
 
 		/** Loads robot files, returns the file names in an array of FStrings. */

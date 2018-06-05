@@ -5,6 +5,9 @@
 void AMainMenu_GameModeBase::BeginPlay() {
 	Super::BeginPlay();
 
+	/* On load, verify/create default directories. */
+	VerifyCreateDefaultDirectories();
+
 	/* On load, call function to change widget, passing through our starting widget. */
 	ChangeMenuWidget(StartingWidgetClass);
 }
@@ -25,4 +28,8 @@ void AMainMenu_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidget
 	}
 }
 
-
+void AMainMenu_GameModeBase::VerifyCreateDefaultDirectories() {
+	if (!FI->VerifyOrCreateDefaultDirectories()) {
+		GEngine->AddOnScreenDebugMessage(0, 2.f, FColor::Red, FString("Failed to create default directories."));
+	}
+}

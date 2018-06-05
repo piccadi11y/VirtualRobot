@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Blueprint/UserWidget.h"
+#include "FileInterface.h"
+#include "Engine.h"
 #include "MainMenu_GameModeBase.generated.h"
 
 /**
@@ -32,5 +34,10 @@ protected:
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
 
+	/** Verify/Create default directories as per File Interface definitions. */
+	void VerifyCreateDefaultDirectories();
+
+	/** The file interface we will use for loading and saving robots/code. */
+	FileInterface* FI;
 
 };
