@@ -37,6 +37,9 @@ protected:
 	/** Verify/Create default directories as per File Interface definitions. */
 	void VerifyCreateDefaultDirectories();
 
+	/** Ensure default files exist. */
+	void VerifyCreateDefaultFiles();
+
 	/** The file interface we will use for loading and saving robots/code. */
 	FileInterface* FI;
 

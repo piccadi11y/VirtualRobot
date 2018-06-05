@@ -17,14 +17,15 @@ TArray<FString> FileInterface::File_Read(FString& dir, FString& fileName) {
 	return {FString("")};
 }
 
-void FileInterface::File_Write(FString& dir, FString& fileName, TArray<FString> txt) {
+void FileInterface::File_Write(FString& dir, FString& fileName, TArray<FString> txt/*, bool Overwrite*/) {
 	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
 	FString abs = dir + "/" + fileName;
 
+	bool exists = PF.DirectoryExists(*dir);
 	/* If directory exists, write data to file. Either overwriting current or creating new. */
-	if (PF.DirectoryExists(*dir)) {
+	if (exists/* && Overwrite*/) {
 		FFileHelper::SaveStringArrayToFile(txt, *abs);
-	}
+	}/* else if (!exists) FFileHelper::SaveStringArrayToFile(txt, *abs);*/
 }
 
 bool FileInterface::VerifyOrCreateDirectory(const FString& TestDir) const {
@@ -61,7 +62,6 @@ TArray<FString> FileInterface::LoadFileList_Program() {
 }
 
 bool FileInterface::VerifyOrCreateDefaultDirectories() const {
-	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
 	FString absRbt = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
 	FString abePrgm = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
 
@@ -74,4 +74,11 @@ bool FileInterface::VerifyOrCreateDefaultDirectories() const {
 	} 
 	
 	return true;
+}
+
+bool FileInterface::CheckFileExists(const FString& Path) const {
+	FFileManagerGeneric FM;
+
+	/* Check for and return the existence of the file. */
+	return FM.FileExists(*Path);
 }

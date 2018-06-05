@@ -21,13 +21,15 @@ class VIRTUALROBOT_API FileInterface
 public:
 
 		/** Write array to file. */
-		void File_Write(FString& dir, FString& fileName, TArray<FString> txt);
+		void File_Write(FString& dir, FString& fileName, TArray<FString> txt/*, bool Overwrite*/);
 		/** Read array from file. */
 		TArray<FString> File_Read(FString& dir, FString& fileName);
 		/** Checks for existing dir, if doesn't exist, create it. */
 		bool VerifyOrCreateDirectory(const FString& TestDir) const;
 		/** Checks for existing default dir, if doesn't exist, create it. */
 		bool VerifyOrCreateDefaultDirectories() const;
+		/** Checks to see if a file exists. */
+		bool CheckFileExists(const FString& Path) const;
 
 
 		/** Loads robot files, returns the file names in an array of FStrings. */
