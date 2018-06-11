@@ -20,9 +20,43 @@ public:
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void ChangeRobotProgrammingWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		FString ChangeRobotProgrammingButtonTexts();
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void CreateRobotProgrammingBlock();
+
+	UPROPERTY(EditAnywhere)
+		TArray<Block> Blocks;
+
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
+
+	enum class BlockType
+	{
+		FORWARD,
+		BACKWARD,
+		TURNING,
+		LIGHT_SENSOR,
+		PROXIMITY_SENSOR,
+		LOOP
+	};
+
+	//USTRUCT()
+		struct Block
+		{
+			//GENERATED_BODY()
+
+			//UPROPERTY()
+				int id;
+			//UPROPERTY()
+				BlockType typeOfBlock;
+			//UPROPERTY()
+				int duration;
+
+		};
 
 	/** The widget class we will use as our menu widget when the program start. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = RobotProgramming)
