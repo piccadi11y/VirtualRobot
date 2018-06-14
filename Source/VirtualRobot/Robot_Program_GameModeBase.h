@@ -23,7 +23,7 @@ protected:
 
 	
 
-
+	
 	struct Block
 	{
 		
@@ -66,6 +66,7 @@ public:
 		void CreateMovementBlock();
 
 	TArray<Block> Blocks;
+
 
 	
 };
