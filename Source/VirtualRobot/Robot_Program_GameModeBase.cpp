@@ -25,17 +25,10 @@ void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUser
 	}
 }
 
-FString ARobot_Program_GameModeBase::ChangeRobotProgrammingButtonTexts()
+void ARobot_Program_GameModeBase::CreateMovementBlock()
 {
+
 	
-	return "Working";
-}
-
-
-
-void  ARobot_Program_GameModeBase::CreateRobotProgrammingBlock()
-{
-	//Block test{ 1,FORWARD,5 };
 }
 
 

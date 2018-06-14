@@ -15,48 +15,24 @@ class VIRTUALROBOT_API ARobot_Program_GameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-public:
-	/** Remove the current menu widget and create a new one from the specified class, if provided. */
-	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void ChangeRobotProgrammingWidget(TSubclassOf<UUserWidget> NewWidgetClass);
-
-	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		FString ChangeRobotProgrammingButtonTexts();
-
-	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void CreateRobotProgrammingBlock();
-
-	UPROPERTY(EditAnywhere)
-		TArray<Block> Blocks;
-
+	
 
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
 
-	enum class BlockType
+	
+
+
+	struct Block
 	{
-		FORWARD,
-		BACKWARD,
-		TURNING,
-		LIGHT_SENSOR,
-		PROXIMITY_SENSOR,
-		LOOP
+		
+		int id;
+		//BlockType typeOfBlock;
+		int duration;
+
 	};
-
-	//USTRUCT()
-		struct Block
-		{
-			//GENERATED_BODY()
-
-			//UPROPERTY()
-				int id;
-			//UPROPERTY()
-				BlockType typeOfBlock;
-			//UPROPERTY()
-				int duration;
-
-		};
+	
 
 	/** The widget class we will use as our menu widget when the program start. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = RobotProgramming)
@@ -65,5 +41,31 @@ protected:
 	/** The widget instance that we are currently using as our menu. */
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
+
+public:
+	/** Remove the current menu widget and create a new one from the specified class, if provided. */
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void ChangeRobotProgrammingWidget(TSubclassOf<UUserWidget> NewWidgetClass);
+
+
+	/*UENUM(BlueprintCallable, Category = RobotProgramming)
+		enum class BlockType
+	{
+		FORWARD,
+		BACKWARD,
+		TURNING,
+		LIGHT_SENSOR,
+		PROXIMITY_SENSOR,
+		TOUCH_SENSOR,
+		FOR_LOOP,
+		FOREVER_LOOP,
+		WAIT
+	};*/
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void CreateMovementBlock();
+
+	TArray<Block> Blocks;
+
 	
 };
