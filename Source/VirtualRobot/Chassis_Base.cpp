@@ -1,29 +1,25 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "LogicBoard_Base.h"
+#include "Chassis_Base.h"
 
 
 // Sets default values
-ALogicBoard_Base::ALogicBoard_Base()
+AChassis_Base::AChassis_Base()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	ObjectMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = ObjectMesh;
 }
 
 // Called when the game starts or when spawned
-void ALogicBoard_Base::BeginPlay()
+void AChassis_Base::BeginPlay()
 {
 	Super::BeginPlay();
-
-	ObjectMesh->SetStaticMesh(MeshToUse);
 	
 }
 
 // Called every frame
-void ALogicBoard_Base::Tick(float DeltaTime)
+void AChassis_Base::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

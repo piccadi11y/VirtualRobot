@@ -47,6 +47,7 @@ void AMainMenu_GameModeBase::VerifyCreateDefaultFiles() {
 	/* Create abs path for .rbt or .prgm files. */
 	absR = pR + fnR;
 	absP = pP + fnP;
+	/* If the files don't already exist, create/populate them. */
 	if (!(FI->CheckFileExists(absR)) && !(FI->CheckFileExists(absP))) {
 		FI->File_Write(pR, fnR, { FString("Default"), FString("Robot") }/*, false*/);
 		FI->File_Write(pP, fnP, { FString("Default"), FString("Program") }/*, false*/);
