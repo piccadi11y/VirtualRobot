@@ -35,3 +35,7 @@ void ASpawnPoint_Base::PassSelfToGameMode() {
 	ARobot_Run_GameModeBase* GM = Cast<ARobot_Run_GameModeBase>(GetWorld()->GetAuthGameMode());
 	GM->SetSpawnPointPointer(this);
 }
+
+void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Program) {
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
+}

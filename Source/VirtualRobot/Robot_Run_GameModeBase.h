@@ -36,6 +36,9 @@ public:
 	/** Getter of the Program files list. */
 	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
 		TArray<FString> GetAvailableFiles_Program();
+	/** Initiate the process of spawing the robot. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		void SpawnRobot(FString FileName_Robot, FString FileName_Program);
 
 	/** Setter for the spawn point pointer. */
 	void SetSpawnPointPointer(AActor* SP);

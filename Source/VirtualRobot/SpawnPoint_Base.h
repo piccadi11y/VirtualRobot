@@ -35,6 +35,9 @@ public:
 	/** The static mesh set in the editor to be used to represent the object. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh)
 		UStaticMesh* MeshToUse;
+
+	/** Initialises the spawn sequence. */
+	void InitSpawn(FString FileName_Robot, FString FileName_Program);
 	
 	/** Test function to be called form the GameMode to confirm connection. */
 	//void TestPrint() { GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("From SP")); }

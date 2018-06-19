@@ -55,3 +55,14 @@ void ARobot_Run_GameModeBase::SetSpawnPointPointer(AActor* SP) {
 	if (SpawnPoint == nullptr) SpawnPoint = Cast<ASpawnPoint_Base>(SP);
 	//SpawnPoint->TestPrint();
 }
+
+void ARobot_Run_GameModeBase::SpawnRobot(FString FileName_Robot, FString FileName_Program) {
+	if (FileName_Robot.Contains(FString(ROBOT_EXTENSION))) {
+		FileName_Robot.RemoveAt(FileName_Robot.Len() - ROBOT_EXTENSION_LENGTH, ROBOT_EXTENSION_LENGTH);
+	}
+	if (FileName_Program.Contains(FString(PROGRAM_EXTENSION))) {
+		FileName_Program.RemoveAt(FileName_Program.Len() - PROGRAM_EXTENSION_LENGTH, PROGRAM_EXTENSION_LENGTH);
+	}
+
+	SpawnPoint->InitSpawn(FileName_Robot, FileName_Program);
+}
