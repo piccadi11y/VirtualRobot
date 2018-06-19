@@ -51,6 +51,7 @@ TArray<FString> ARobot_Run_GameModeBase::GetAvailableFiles_Program() {
 }
 
 void ARobot_Run_GameModeBase::SetSpawnPointPointer(AActor* SP) {
-	SpawnPoint = Cast<ASpawnPoint_Base>(SP);
+	/* Checks there isn't already a spawn point in the level, sets reference to the Spawn Point. */
+	if (SpawnPoint == nullptr) SpawnPoint = Cast<ASpawnPoint_Base>(SP);
 	//SpawnPoint->TestPrint();
 }
