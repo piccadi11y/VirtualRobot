@@ -31,6 +31,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/** The static mesh set in the editor to be used to represent the object. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh)
 		UStaticMesh* MeshToUse;
 	

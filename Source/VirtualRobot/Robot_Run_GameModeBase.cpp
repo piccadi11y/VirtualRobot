@@ -11,6 +11,7 @@ void ARobot_Run_GameModeBase::BeginPlay() {
 	LoadAvailableFiles_Program();
 	/* On load, call function to change widget, passing through our starting widget. */
 	ChangeMenuWidget(StartingWidgetClass);
+
 }
 
 void ARobot_Run_GameModeBase::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass) {
@@ -47,4 +48,9 @@ TArray<FString> ARobot_Run_GameModeBase::GetAvailableFiles_Robot() {
 TArray<FString> ARobot_Run_GameModeBase::GetAvailableFiles_Program() {
 	/* Returns the list of available robot files to caller. */
 	return FilesAvailable_Program;
+}
+
+void ARobot_Run_GameModeBase::SetSpawnPointPointer(AActor* SP) {
+	SpawnPoint = Cast<ASpawnPoint_Base>(SP);
+	//SpawnPoint->TestPrint();
 }

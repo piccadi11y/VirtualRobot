@@ -7,6 +7,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Engine.h"
 #include "FileInterface.h"
+#include "SpawnPoint_Base.h"
 #include "Robot_Run_GameModeBase.generated.h"
 
 /**
@@ -36,6 +37,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
 		TArray<FString> GetAvailableFiles_Program();
 
+	/** Setter for the spawn point pointer. */
+	void SetSpawnPointPointer(AActor* SP);
+
 protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
@@ -59,4 +63,9 @@ protected:
 	/** The widget instance that we are currently using as our menu. */
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
+
+	/** Pointer to the map's spawn point. */
+	UPROPERTY()
+		class ASpawnPoint_Base* SpawnPoint;
+
 };
