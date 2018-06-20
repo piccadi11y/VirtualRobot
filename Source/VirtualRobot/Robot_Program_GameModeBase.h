@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Blueprint/UserWidget.h"
+#include "Program_Block.h"
+#include "Engine.h"
 #include "Robot_Program_GameModeBase.generated.h"
 
 /**
@@ -21,17 +23,8 @@ protected:
 	/** Called when the game starts. */
 	virtual void BeginPlay() override;
 
-	
-
-	
-	struct Block
-	{
-		
-		int id;
-		//BlockType typeOfBlock;
-		int duration;
-
-	};
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = RobotProgramming)
+		int blockId = 0;
 	
 
 	/** The widget class we will use as our menu widget when the program start. */
@@ -48,7 +41,7 @@ public:
 		void ChangeRobotProgrammingWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 
 
-	/*UENUM(BlueprintCallable, Category = RobotProgramming)
+	/*UENUM(BlueprintType)
 		enum class BlockType
 	{
 		FORWARD,
@@ -62,11 +55,12 @@ public:
 		WAIT
 	};*/
 
+	TArray<Program_Block> Blocks;
+
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void CreateMovementBlock();
+		void CreateBlock(int Type, TArray<int> Inputs);
 
-	TArray<Block> Blocks;
-
-
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void TestShow();
 	
 };

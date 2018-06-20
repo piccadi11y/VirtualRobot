@@ -25,10 +25,12 @@ void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUser
 	}
 }
 
-void ARobot_Program_GameModeBase::CreateMovementBlock()
-{
-
+void ARobot_Program_GameModeBase::CreateBlock(int Type, TArray<int> Inputs) {
+	
+	Blocks.Add(Program_Block(blockId++, Type, Inputs[1],Inputs[2]));
 	
 }
 
-
+void ARobot_Program_GameModeBase::TestShow() {
+	GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(Blocks[0].AddContents()));
+}
