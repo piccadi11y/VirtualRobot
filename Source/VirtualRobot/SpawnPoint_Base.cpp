@@ -45,17 +45,22 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 	/* Test output to display file names being recieved. */
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
 
+	/* Call logic board spawn function, store pointer. */
 	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(Spawn_LogicBoard(LogicBoard_Test_Mesh));
 }
 
 ALogicBoard_Test* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh) {
 	FTransform Transform(FRotator(0.f, 0.f, 0.f), FVector(0.f, 0.f, 20.f));
+	/* Begin deferred spawn of logic baord. */
 	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, ALogicBoard_Test::StaticClass(), Transform));
 	if (LB != nullptr) {
+		/* Set the UStaticMesh for the object to use. */
 		LB->Set_MeshToUse_Self(Mesh);
+		/* Finish spawn. */
 		UGameplayStatics::FinishSpawningActor(LB, Transform);
 		return LB;
 	}
+	/* TESTING - Let dev know if the spawn failed. */
 	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Failed to create LogicBoard.");
 	return nullptr;
 }

@@ -35,6 +35,10 @@ public:
 		TArray<FString> File_Read_Robot(const FString &FileName) const;
 		/** Read array from .prgm file. */
 		TArray<FString> File_Read_Program(const FString &FileName) const;
+		/** Write array to .rbt file. */
+		void File_Write_Robot(const FString &FileName, TArray<FString> ContentToWrite);
+		/** Write array to .prgm file. */
+		void File_Write_Program(const FString &FileName, TArray<FString> ContentToWrite);
 
 
 		/** Loads robot files, returns the file names in an array of FStrings. */
