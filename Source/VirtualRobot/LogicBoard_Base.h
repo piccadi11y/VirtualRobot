@@ -21,6 +21,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/** The static mesh that is to be used to represent the component's mesh. */
+	UStaticMesh* MeshToUse_Self;
 	/** The mesh being used to represent the object. */
 	UStaticMeshComponent* ObjectMesh;
 
@@ -31,8 +33,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	/** The static mesh set in the editor to be used to represent the object. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh)
-		UStaticMesh* MeshToUse;
-	
+	void Set_MeshToUse_Self(UStaticMesh* Mesh);
 };

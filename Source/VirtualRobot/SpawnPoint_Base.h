@@ -7,6 +7,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "Robot_Run_GameModeBase.h"
 #include "Engine.h"
+#include "FileInterface.h"
+#include "LogicBoard_Test.h"
+#include "Chassis_Base.h"
 #include "SpawnPoint_Base.generated.h"
 
 UCLASS()
@@ -22,11 +25,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/** Pass self to Game Mode. */
+	void PassSelfToGameMode();
+	/** Load Robot Data. */
+	void LoadRobotData(FString FileName);
+	/** Load Program Data. */
+	void LoadProgramData(FString FileName);
+
 	/** The mesh being used to represent the object. */
 	UStaticMeshComponent* MeshObject;
 
-	/** Pass self to Game Mode. */
-	void PassSelfToGameMode();
+	/** Array to store Robot Data. */
+	TArray<FString> Data_Robot;
+	/** Array to store Program Data. */
+	TArray<FString> Data_Program;
+
+	/** Set the mesh for the logicboard_test to use. */
+	ALogicBoard_Test* Spawn_LogicBoard(UStaticMesh* Mesh);
 
 public:	
 	// Called every frame
@@ -36,9 +51,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh)
 		UStaticMesh* MeshToUse;
 
+	/** The static meshes to use for the different logic boards. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LogicBoard)
+		UStaticMesh* LogicBoard_Test_Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LogicBoard)
+		UStaticMesh* LogicBoard_Two_Mesh;
+
 	/** Initialises the spawn sequence. */
 	void InitSpawn(FString FileName_Robot, FString FileName_Program);
 	
+
+
+
 	/** Test function to be called form the GameMode to confirm connection. */
 	//void TestPrint() { GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("From SP")); }
 };

@@ -18,7 +18,7 @@ void ALogicBoard_Base::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ObjectMesh->SetStaticMesh(MeshToUse);
+	ObjectMesh->SetStaticMesh(MeshToUse_Self);
 	
 }
 
@@ -29,3 +29,6 @@ void ALogicBoard_Base::Tick(float DeltaTime)
 
 }
 
+void ALogicBoard_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
+	MeshToUse_Self = Mesh;
+}
