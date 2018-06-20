@@ -34,11 +34,14 @@ protected:
 
 	/** The mesh being used to represent the object. */
 	UStaticMeshComponent* MeshObject;
+	/** The file interface. */
+	FileInterface* FI;
 
 	/** Array to store Robot Data. */
 	TArray<FString> Data_Robot;
 	/** Array to store Program Data. */
 	TArray<FString> Data_Program;
+
 
 	/** Set the mesh for the logicboard_test to use. */
 	ALogicBoard_Test* Spawn_LogicBoard(UStaticMesh* Mesh);

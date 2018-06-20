@@ -7,8 +7,9 @@
 ASpawnPoint_Base::ASpawnPoint_Base()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	/* Creates mesh component and sets it as root. */
 	MeshObject = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = MeshObject;
 }
@@ -18,8 +19,10 @@ void ASpawnPoint_Base::BeginPlay()
 {
 	Super::BeginPlay();
 
+	/* Set the mesh component to use the static mesh selected in the editor. */
 	MeshObject->SetStaticMesh(MeshToUse);
 
+	/* Pass self reference to GameMode, so that it can pass information through later. */
 	PassSelfToGameMode();
 	
 }
@@ -32,11 +35,14 @@ void ASpawnPoint_Base::Tick(float DeltaTime)
 }
 
 void ASpawnPoint_Base::PassSelfToGameMode() {
+	/* Get pointer to GameMode. */
 	ARobot_Run_GameModeBase* GM = Cast<ARobot_Run_GameModeBase>(GetWorld()->GetAuthGameMode());
-	GM->SetSpawnPointPointer(this);
+	/* If pointer is valid, pass reference to self to appropriate function. */
+	if (GM != nullptr) GM->SetSpawnPointPointer(this);
 }
 
 void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Program) {
+	/* Test output to display file names being recieved. */
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
 
 	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(Spawn_LogicBoard(LogicBoard_Test_Mesh));
@@ -55,9 +61,11 @@ ALogicBoard_Test* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh) {
 }
 
 void ASpawnPoint_Base::LoadRobotData(FString FileName) {
-
+	/* Store returned data in appropriate array. */
+	Data_Robot = FI->File_Read_Robot(FileName);
 }
 
 void ASpawnPoint_Base::LoadProgramData(FString FileName) {
-
+	/* Store returned data in appropriate array. */
+	Data_Program = FI->File_Read_Program(FileName);
 }
