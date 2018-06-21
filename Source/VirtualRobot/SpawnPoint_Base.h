@@ -70,6 +70,13 @@ public:
 		UStaticMesh* LogicBoard_Test_Mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LogicBoard)
 		UStaticMesh* LogicBoard_Basic_Mesh;
+	/** The static meshes to use for the different chassis. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Chassis)
+		UStaticMesh* Chassis_Small_Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Chassis)
+		UStaticMesh* Chassis_Medium_Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Chassis)
+		UStaticMesh* Chassis_Large_Mesh;
 
 	/** Initialises the spawn sequence. */
 	void InitSpawn(FString FileName_Robot, FString FileName_Program);

@@ -48,8 +48,6 @@ void AMainMenu_GameModeBase::VerifyCreateDefaultFiles() {
 	absR = pR + fnR;
 	absP = pP + fnP;
 	/* If the files don't already exist, create/populate them. */
-	if (!(FI->CheckFileExists(absR)) && !(FI->CheckFileExists(absP))) {
-		FI->File_Write(pR, fnR, { FString("Default"), FString("Robot") }/*, false*/);
-		FI->File_Write(pP, fnP, { FString("Default"), FString("Program") }/*, false*/);
-	}
+	if (!FI->CheckFileExists(absR)) FI->File_Write(pR, fnR, { FString("Default"), FString("Robot") }/*, false*/);
+	if (!FI->CheckFileExists(absP)) FI->File_Write(pP, fnP, { FString("Default"), FString("Program") }/*, false*/);
 }
