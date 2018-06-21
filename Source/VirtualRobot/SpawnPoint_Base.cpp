@@ -43,7 +43,21 @@ void ASpawnPoint_Base::PassSelfToGameMode() {
 
 void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Program) {
 	/* Test output to display file names being recieved. */
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
+
+	/* Load robot data. */
+	LoadRobotData(FileName_Robot);
+	/* Load program data. */
+	LoadProgramData(FileName_Program);
+
+
+	FString InputString = FindChosenComponent(FString(LOGIC_BOARD_TAG));
+	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, InputString);
+	if (InputString != FString("")) {
+		if (InputString == FString(LOGIC_BOARD_TYPE__TEST)) {
+			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, FString(LOGIC_BOARD_TYPE__TEST));
+		}
+	}
 
 	/* Call logic board spawn function, store pointer. */
 	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(Spawn_LogicBoard(LogicBoard_Test_Mesh));
@@ -68,9 +82,20 @@ ALogicBoard_Test* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh) {
 void ASpawnPoint_Base::LoadRobotData(FString FileName) {
 	/* Store returned data in appropriate array. */
 	Data_Robot = FI->File_Read_Robot(FileName);
+	/*for (int i = 0; i < Data_Robot.Num(); i++) {
+		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, Data_Robot[i]);
+	}*/
 }
 
 void ASpawnPoint_Base::LoadProgramData(FString FileName) {
 	/* Store returned data in appropriate array. */
 	Data_Program = FI->File_Read_Program(FileName);
+}
+
+FString ASpawnPoint_Base::FindChosenComponent(const FString &ComponentTag) {
+	for (int i{ 0 }; i < Data_Robot.Num(); i++) {
+		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::FromInt(i) + Data_Robot[i]);
+		if (Data_Robot[i] == ComponentTag) return Data_Robot[++i];
+	}
+	return FString("empty");
 }

@@ -12,6 +12,13 @@
 #include "Chassis_Base.h"
 #include "SpawnPoint_Base.generated.h"
 
+#define LOGIC_BOARD_TAG "[Logic Board]"
+#define LOGIC_BOARD_TYPE__TEST "Test"
+#define CHASSIS_TAG "[Chassis]"
+#define CHASSIS_TYPE__SMALL "Small"
+#define CHASSIS_TYPE__MEDIUM "Medium"
+#define CHASSIS_TYPE__LARGE "Large"
+
 UCLASS()
 class VIRTUALROBOT_API ASpawnPoint_Base : public AActor
 {
@@ -31,6 +38,8 @@ protected:
 	void LoadRobotData(FString FileName);
 	/** Load Program Data. */
 	void LoadProgramData(FString FileName);
+	/** Find chosen component in robot file. */
+	FString FindChosenComponent(const FString &ComponentTag);
 
 	/** The mesh being used to represent the object. */
 	UStaticMeshComponent* MeshObject;

@@ -18,12 +18,15 @@ TArray<FString> FileInterface::File_Read(const FString& dir, const FString& file
 }
 
 TArray<FString> FileInterface::File_Read_Robot(const FString &FileName) const {
-
-	return { "" };
+	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
+	FString fn = FileName + FString(ROBOT_EXTENSION);
+	return File_Read(dir, FileName);
 }
 
 TArray<FString> FileInterface::File_Read_Program(const FString &FileName) const {
-	return { "" };
+	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
+	FString fn = FileName + FString(PROGRAM_EXTENSION);
+	return File_Read(dir, FileName);
 }
 
 void FileInterface::File_Write_Robot(const FString &FileName, TArray<FString> ContentToWrite) {
