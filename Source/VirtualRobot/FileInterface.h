@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "FileHelper.h"
 #include "PlatformFile.h"
 #include "FileManagerGeneric.h"

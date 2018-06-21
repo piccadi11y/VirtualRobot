@@ -42,49 +42,60 @@ void ASpawnPoint_Base::PassSelfToGameMode() {
 }
 
 void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Program) {
-	/* Test output to display file names being recieved. */
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FileName_Robot + FString(" ") + FileName_Program);
-
 	/* Load robot data. */
 	LoadRobotData(FileName_Robot);
 	/* Load program data. */
 	LoadProgramData(FileName_Program);
 
+	/* Declare variable to be used to store LogicBoard pointer. */
+	AActor* LogicBoard;
+	FString LogicBoard_Type;
 
-	FString InputString = FindChosenComponent(FString(LOGIC_BOARD_TAG));
-	//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, InputString);
-	if (InputString != FString("")) {
-		if (InputString == FString(LOGIC_BOARD_TYPE__TEST)) {
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, FString(LOGIC_BOARD_TYPE__TEST));
+	FString SelectedComponent = FindChosenComponent(FString(LOGIC_BOARD_TAG));
+	if (SelectedComponent != FString("")) {
+		if (SelectedComponent == FString(LOGIC_BOARD_TYPE__TEST)) {
+			/* Call logic board spawn function, store pointer. */
+			LogicBoard = Cast<AActor>(Spawn_LogicBoard(LogicBoard_Test_Mesh, SelectedComponent));
+			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__TEST);
 		}
+		else if (SelectedComponent == FString(LOGIC_BOARD_TYPE__BASIC)) {
+			LogicBoard = Cast<AActor>(Spawn_LogicBoard(LogicBoard_Basic_Mesh, SelectedComponent));
+			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__BASIC);
+		}
+		else GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Failed to spawn logic board."));
 	}
 
-	/* Call logic board spawn function, store pointer. */
-	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(Spawn_LogicBoard(LogicBoard_Test_Mesh));
 }
 
-ALogicBoard_Test* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh) {
+AActor* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh, const FString &Type) {
 	FTransform Transform(FRotator(0.f, 0.f, 0.f), FVector(0.f, 0.f, 20.f));
-	/* Begin deferred spawn of logic baord. */
-	ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, ALogicBoard_Test::StaticClass(), Transform));
-	if (LB != nullptr) {
-		/* Set the UStaticMesh for the object to use. */
-		LB->Set_MeshToUse_Self(Mesh);
-		/* Finish spawn. */
-		UGameplayStatics::FinishSpawningActor(LB, Transform);
-		return LB;
+	if (Type == FString(LOGIC_BOARD_TYPE__TEST)) {
+		/* Begin deferred spawn of logic board type: test. */
+		ALogicBoard_Test* LB = Cast<ALogicBoard_Test>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, ALogicBoard_Test::StaticClass(), Transform));
+		if (LB != nullptr) {
+			/* Set the UStaticMesh for the object to use. */
+			LB->Set_MeshToUse_Self(Mesh);
+			/* Finish spawn. */
+			UGameplayStatics::FinishSpawningActor(LB, Transform);
+			return LB;
+		}
+	}
+	else if (Type == FString(LOGIC_BOARD_TYPE__BASIC)) {
+		ALogicBoard_Basic* LB = Cast<ALogicBoard_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, ALogicBoard_Basic::StaticClass(), Transform));
+		if (LB != nullptr) {
+			LB->Set_MeshToUse_Self(Mesh);
+			UGameplayStatics::FinishSpawningActor(LB, Transform);
+			return LB;
+		}
 	}
 	/* TESTING - Let dev know if the spawn failed. */
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Failed to create LogicBoard.");
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Failed to create Logic Board.");
 	return nullptr;
 }
 
 void ASpawnPoint_Base::LoadRobotData(FString FileName) {
 	/* Store returned data in appropriate array. */
 	Data_Robot = FI->File_Read_Robot(FileName);
-	/*for (int i = 0; i < Data_Robot.Num(); i++) {
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, Data_Robot[i]);
-	}*/
 }
 
 void ASpawnPoint_Base::LoadProgramData(FString FileName) {
@@ -93,9 +104,6 @@ void ASpawnPoint_Base::LoadProgramData(FString FileName) {
 }
 
 FString ASpawnPoint_Base::FindChosenComponent(const FString &ComponentTag) {
-	for (int i{ 0 }; i < Data_Robot.Num(); i++) {
-		//GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::FromInt(i) + Data_Robot[i]);
-		if (Data_Robot[i] == ComponentTag) return Data_Robot[++i];
-	}
-	return FString("empty");
+	for (int i{ 0 }; i < Data_Robot.Num(); i++) if (Data_Robot[i] == ComponentTag) return Data_Robot[++i];
+	return FString("");
 }

@@ -9,11 +9,13 @@
 #include "Engine.h"
 #include "FileInterface.h"
 #include "LogicBoard_Test.h"
+#include "LogicBoard_Basic.h"
 #include "Chassis_Base.h"
 #include "SpawnPoint_Base.generated.h"
 
 #define LOGIC_BOARD_TAG "[Logic Board]"
 #define LOGIC_BOARD_TYPE__TEST "Test"
+#define LOGIC_BOARD_TYPE__BASIC "Basic"
 #define CHASSIS_TAG "[Chassis]"
 #define CHASSIS_TYPE__SMALL "Small"
 #define CHASSIS_TYPE__MEDIUM "Medium"
@@ -52,8 +54,8 @@ protected:
 	TArray<FString> Data_Program;
 
 
-	/** Set the mesh for the logicboard_test to use. */
-	ALogicBoard_Test* Spawn_LogicBoard(UStaticMesh* Mesh);
+	/** Set the mesh for the logicboard to use. */
+	AActor* Spawn_LogicBoard(UStaticMesh* Mesh, const FString &Type);
 
 public:	
 	// Called every frame
@@ -67,7 +69,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LogicBoard)
 		UStaticMesh* LogicBoard_Test_Mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LogicBoard)
-		UStaticMesh* LogicBoard_Two_Mesh;
+		UStaticMesh* LogicBoard_Basic_Mesh;
 
 	/** Initialises the spawn sequence. */
 	void InitSpawn(FString FileName_Robot, FString FileName_Program);
