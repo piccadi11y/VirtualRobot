@@ -51,19 +51,37 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 	AActor* LogicBoard;
 	FString LogicBoard_Type;
 
+	/* Get type of logic board to be created. */
 	FString SelectedComponent = FindChosenComponent(FString(LOGIC_BOARD_TAG));
+	/* If input isn't empty, try and create correlating logic board. */
 	if (SelectedComponent != FString("")) {
 		if (SelectedComponent == FString(LOGIC_BOARD_TYPE__TEST)) {
 			/* Call logic board spawn function, store pointer. */
-			LogicBoard = Cast<AActor>(Spawn_LogicBoard(LogicBoard_Test_Mesh, SelectedComponent));
+			LogicBoard = Spawn_LogicBoard(LogicBoard_Test_Mesh, SelectedComponent);
 			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__TEST);
 		}
 		else if (SelectedComponent == FString(LOGIC_BOARD_TYPE__BASIC)) {
-			LogicBoard = Cast<AActor>(Spawn_LogicBoard(LogicBoard_Basic_Mesh, SelectedComponent));
+			LogicBoard = Spawn_LogicBoard(LogicBoard_Basic_Mesh, SelectedComponent);
 			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__BASIC);
 		}
-		else GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Failed to spawn logic board."));
 	}
+	else GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Failed to spawn logic board."));
+
+	/* Get the type of chassis to be created. */
+	SelectedComponent = FindChosenComponent(FString(CHASSIS_TAG));
+	/* If input isn't empty, try and create the correlating chassis. */
+	if (SelectedComponent != FString("")) {
+		if (SelectedComponent == FString(CHASSIS_TYPE__SMALL)) {
+			AActor* x = Spawn_Chassis(Chassis_Small_Mesh, SelectedComponent);
+		}
+		else if (SelectedComponent == FString(CHASSIS_TYPE__MEDIUM)) {
+			AActor* x = Spawn_Chassis(Chassis_Medium_Mesh, SelectedComponent);
+		}
+		else if (SelectedComponent == FString(CHASSIS_TYPE__LARGE)) {
+			AActor* x = Spawn_Chassis(Chassis_Large_Mesh, SelectedComponent);
+		}
+	}
+	else GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Red, FString("Failed to spawn chassis."));
 
 }
 
@@ -90,6 +108,36 @@ AActor* ASpawnPoint_Base::Spawn_LogicBoard(UStaticMesh* Mesh, const FString &Typ
 	}
 	/* TESTING - Let dev know if the spawn failed. */
 	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, "Failed to create Logic Board.");
+	return nullptr;
+}
+
+AActor* ASpawnPoint_Base::Spawn_Chassis(UStaticMesh* Mesh, const FString &Type) {
+	FTransform Transform(FRotator(0.f, 0.f, 0.f), FVector(0.f, 0.f, 15.f));
+	if (Type == FString(CHASSIS_TYPE__SMALL)) {
+		/* Begin deferred spawn of chassis, type: small. */
+		AChassis_Small* C = Cast<AChassis_Small>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AChassis_Small::StaticClass(), Transform));
+		if (C != nullptr) {
+			C->Set_MeshToUse_Self(Mesh);
+			UGameplayStatics::FinishSpawningActor(C, Transform);
+			return C;
+		}
+	}
+	else if (Type == FString(CHASSIS_TYPE__MEDIUM)) {
+		AChassis_Medium* C = Cast<AChassis_Medium>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AChassis_Medium::StaticClass(), Transform));
+		if (C != nullptr) {
+			C->Set_MeshToUse_Self(Mesh);
+			UGameplayStatics::FinishSpawningActor(C, Transform);
+			return C;
+		}
+	}
+	else if (Type == FString(CHASSIS_TYPE__LARGE)) {
+		AChassis_Large* C = Cast<AChassis_Large>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AChassis_Large::StaticClass(), Transform));
+		if (C != nullptr) {
+			C->Set_MeshToUse_Self(Mesh);
+			UGameplayStatics::FinishSpawningActor(C, Transform);
+			return C;
+		}
+	}
 	return nullptr;
 }
 

@@ -29,6 +29,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Set_MeshToUSe_Self(UStaticMesh*);
+	void Set_MeshToUse_Self(UStaticMesh*);
 	
 };

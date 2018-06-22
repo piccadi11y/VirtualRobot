@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Chassis_Base.h"
 #include "Components/StaticMeshComponent.h"
+#include "MacroDefinitions.h"
 #include "LogicBoard_Base.generated.h"
 
 UCLASS()
@@ -27,7 +28,7 @@ protected:
 	UStaticMeshComponent* ObjectMesh;
 
 	/** The chassis the logic board is attached to. */
-	AChassis_Base* Chassis;
+	AActor* Chassis;
 
 public:	
 	// Called every frame

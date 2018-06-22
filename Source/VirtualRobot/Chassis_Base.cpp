@@ -29,6 +29,6 @@ void AChassis_Base::Tick(float DeltaTime)
 
 }
 
-void AChassis_Base::Set_MeshToUSe_Self(UStaticMesh* Mesh) {
+void AChassis_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 	MeshToUse_Self = Mesh;
 }

@@ -7,14 +7,9 @@
 #include "FileHelper.h"
 #include "PlatformFile.h"
 #include "FileManagerGeneric.h"
+#include "MacroDefinitions.h"
 
-#define BASE_PATH "C:/VirtualRobot"
-#define RELATIVE_PATH_ROBOTS "Robots"
-#define RELATIVE_PATH_PROGRAMS "Programs"
-#define ROBOT_EXTENSION ".rbt"
-#define ROBOT_EXTENSION_LENGTH 4
-#define PROGRAM_EXTENSION ".prgm"
-#define PROGRAM_EXTENSION_LENGTH 5
+
 
 /**
  * 

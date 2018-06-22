@@ -8,18 +8,16 @@
 #include "Robot_Run_GameModeBase.h"
 #include "Engine.h"
 #include "FileInterface.h"
+
 #include "LogicBoard_Test.h"
 #include "LogicBoard_Basic.h"
-#include "Chassis_Base.h"
+#include "Chassis_Small.h"
+#include "Chassis_Medium.h"
+#include "Chassis_Large.h"
+#include "MacroDefinitions.h"
 #include "SpawnPoint_Base.generated.h"
 
-#define LOGIC_BOARD_TAG "[Logic Board]"
-#define LOGIC_BOARD_TYPE__TEST "Test"
-#define LOGIC_BOARD_TYPE__BASIC "Basic"
-#define CHASSIS_TAG "[Chassis]"
-#define CHASSIS_TYPE__SMALL "Small"
-#define CHASSIS_TYPE__MEDIUM "Medium"
-#define CHASSIS_TYPE__LARGE "Large"
+
 
 UCLASS()
 class VIRTUALROBOT_API ASpawnPoint_Base : public AActor
@@ -54,8 +52,10 @@ protected:
 	TArray<FString> Data_Program;
 
 
-	/** Set the mesh for the logicboard to use. */
+	/** Spawn the logic board. */
 	AActor* Spawn_LogicBoard(UStaticMesh* Mesh, const FString &Type);
+	/** Spawn the chassis. */
+	AActor* Spawn_Chassis(UStaticMesh* Mesh, const FString &Type);
 
 public:	
 	// Called every frame
