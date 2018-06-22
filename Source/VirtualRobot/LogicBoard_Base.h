@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Chassis_Base.h"
+#include "Chassis_Small.h"
+#include "Chassis_Medium.h"
+#include "Chassis_Large.h"
 #include "Components/StaticMeshComponent.h"
 #include "MacroDefinitions.h"
 #include "LogicBoard_Base.generated.h"
@@ -29,10 +31,13 @@ protected:
 
 	/** The chassis the logic board is attached to. */
 	AActor* Chassis;
+	FString Chassis_Type;
+	void AttachChassis();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
+	void Set_Chassis(AActor* Actor, FString &Type);
 };

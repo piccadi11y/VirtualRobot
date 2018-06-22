@@ -32,3 +32,7 @@ void AChassis_Base::Tick(float DeltaTime)
 void AChassis_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 	MeshToUse_Self = Mesh;
 }
+
+void AChassis_Base::AttachToLogicBoard(AActor* LB) {
+	GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Yellow, FString("Attached ;)"));
+}

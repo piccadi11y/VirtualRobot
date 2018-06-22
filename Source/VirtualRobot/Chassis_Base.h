@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine.h"
 #include "Chassis_Base.generated.h"
 
 UCLASS()
@@ -30,5 +31,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void Set_MeshToUse_Self(UStaticMesh*);
+	void AttachToLogicBoard(AActor* LB);
 	
 };

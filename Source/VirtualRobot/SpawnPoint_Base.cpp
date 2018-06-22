@@ -48,7 +48,7 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 	LoadProgramData(FileName_Program);
 
 	/* Declare variable to be used to store LogicBoard pointer. */
-	AActor* LogicBoard;
+	AActor* LogicBoard = nullptr;
 	FString LogicBoard_Type;
 
 	/* Get type of logic board to be created. */
@@ -67,21 +67,24 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 	}
 	else GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Failed to spawn logic board."));
 
+
+	AActor* NewComponent = nullptr;
 	/* Get the type of chassis to be created. */
 	SelectedComponent = FindChosenComponent(FString(CHASSIS_TAG));
 	/* If input isn't empty, try and create the correlating chassis. */
 	if (SelectedComponent != FString("")) {
 		if (SelectedComponent == FString(CHASSIS_TYPE__SMALL)) {
-			AActor* x = Spawn_Chassis(Chassis_Small_Mesh, SelectedComponent);
+			NewComponent = Spawn_Chassis(Chassis_Small_Mesh, SelectedComponent);
 		}
 		else if (SelectedComponent == FString(CHASSIS_TYPE__MEDIUM)) {
-			AActor* x = Spawn_Chassis(Chassis_Medium_Mesh, SelectedComponent);
+			NewComponent = Spawn_Chassis(Chassis_Medium_Mesh, SelectedComponent);
 		}
 		else if (SelectedComponent == FString(CHASSIS_TYPE__LARGE)) {
-			AActor* x = Spawn_Chassis(Chassis_Large_Mesh, SelectedComponent);
+			NewComponent = Spawn_Chassis(Chassis_Large_Mesh, SelectedComponent);
 		}
 	}
 	else GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Red, FString("Failed to spawn chassis."));
+	if (LogicBoard && NewComponent) Cast<ALogicBoard_Base>(LogicBoard)->Set_Chassis(NewComponent, SelectedComponent);
 
 }
 

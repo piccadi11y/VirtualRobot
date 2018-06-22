@@ -32,3 +32,15 @@ void ALogicBoard_Base::Tick(float DeltaTime)
 void ALogicBoard_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 	MeshToUse_Self = Mesh;
 }
+
+void ALogicBoard_Base::Set_Chassis(AActor* Actor, FString &Type) {
+	Chassis = Actor;
+	Chassis_Type = Type;
+	AttachChassis();
+}
+
+void ALogicBoard_Base::AttachChassis() {
+	if (Chassis_Type == FString(CHASSIS_TYPE__SMALL)) Cast<AChassis_Small>(Chassis)->AttachToLogicBoard(Cast<AActor>(this));
+	else if (Chassis_Type == FString(CHASSIS_TYPE__MEDIUM)) Cast<AChassis_Medium>(Chassis)->AttachToLogicBoard(Cast<AActor>(this));
+	else if (Chassis_Type == FString(CHASSIS_TYPE__LARGE)) Cast<AChassis_Large>(Chassis)->AttachToLogicBoard(Cast<AActor>(this));
+}
