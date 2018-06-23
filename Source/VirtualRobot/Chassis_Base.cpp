@@ -34,5 +34,5 @@ void AChassis_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 }
 
 void AChassis_Base::AttachToLogicBoard(AActor* LB) {
-	GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Yellow, FString("Attached ;)"));
+	this->AttachToComponent(LB->GetRootComponent(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Chassis_Socket"));
 }

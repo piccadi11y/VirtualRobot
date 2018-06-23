@@ -8,6 +8,7 @@
 #include "Chassis_Medium.h"
 #include "Chassis_Large.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "MacroDefinitions.h"
 #include "LogicBoard_Base.generated.h"
 
