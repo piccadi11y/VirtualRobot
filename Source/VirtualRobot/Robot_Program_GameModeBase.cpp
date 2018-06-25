@@ -29,28 +29,25 @@ void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUser
 
 void ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs) {
 	
-	Blocks.Add(Program_Block(blockId++,Inputs[1],Inputs[2]));
+	Blocks.Add(Program_Block(blockId++,Inputs[0],Inputs[1],Inputs[2]));
 	//if (GEngine)
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(Inputs[1]));
 	
 }
 
 void ARobot_Program_GameModeBase::TestShow() {
-	GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(Blocks[0].AddContents()));
+	
 }
 
 void ARobot_Program_GameModeBase::SaveProgram() {
 	FString test1 = "WorkPlz";
 	TArray<FString> stringBlocks;
 	FString blockString;
-	int counter = 0;
 	
 	for (auto blockToGet: Blocks) {
 		blockString = blockToGet.GetStringBlock();
 		stringBlocks.Add(blockString);
-		
 	}
-
 	
 	FI->File_Write_Program(test1, stringBlocks);
 }

@@ -11,13 +11,12 @@ class VIRTUALROBOT_API Program_Block
 {
 protected:
 
-	int m_ID, m_Type, m_mtr1, m_mtr2;
+	int m_ID, m_mtr1, m_mtr2, m_duration;
 
 public:
 
-	int AddContents();
 
-	Program_Block(int ID, int mtr1, int mtr2);
+	Program_Block(int ID,int duration, int mtr1, int mtr2);
 
 	FString GetStringBlock();
 

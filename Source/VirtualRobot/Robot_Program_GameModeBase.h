@@ -39,6 +39,8 @@ protected:
 
 	FileInterface* FI;
 
+	TArray<Program_Block> Blocks;
+
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
@@ -59,7 +61,7 @@ public:
 		WAIT
 	};*/
 
-	TArray<Program_Block> Blocks;
+	
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void CreateBlock(TArray<int> Inputs);
