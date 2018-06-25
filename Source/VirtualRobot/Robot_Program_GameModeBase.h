@@ -7,7 +7,9 @@
 #include "Blueprint/UserWidget.h"
 #include "Program_Block.h"
 #include "Engine.h"
+#include "FileInterface.h"
 #include "Robot_Program_GameModeBase.generated.h"
+
 
 /**
  * 
@@ -34,6 +36,8 @@ protected:
 	/** The widget instance that we are currently using as our menu. */
 	UPROPERTY()
 		UUserWidget* CurrentWidget;
+
+	FileInterface* FI;
 
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */
@@ -62,5 +66,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void TestShow();
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void SaveProgram();
 	
 };

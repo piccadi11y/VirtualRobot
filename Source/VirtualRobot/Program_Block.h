@@ -18,5 +18,9 @@ public:
 	int AddContents();
 
 	Program_Block(int ID, int Type, int mtr1, int mtr2);
+
+	FString GetStringBlock();
+
 	~Program_Block();
+
 };

@@ -2,7 +2,7 @@
 
 #include "FileInterface.h"
 
-TArray<FString> FileInterface::File_Read(FString& dir, FString& fileName) {
+TArray<FString> FileInterface::File_Read(const FString& dir, const FString& fileName) const {
 	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
 	FString abs = dir + "/" + fileName;
 	TArray<FString> res;
@@ -15,6 +15,27 @@ TArray<FString> FileInterface::File_Read(FString& dir, FString& fileName) {
 	}
 	/* If no dir/file exists, return a single empty FString.  */
 	return {FString("")};
+}
+
+TArray<FString> FileInterface::File_Read_Robot(const FString &FileName) const {
+
+	return { "" };
+}
+
+TArray<FString> FileInterface::File_Read_Program(const FString &FileName) const {
+	return { "" };
+}
+
+void FileInterface::File_Write_Robot(const FString &FileName, TArray<FString> ContentToWrite) {
+	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
+	FString fn = FileName + FString(ROBOT_EXTENSION);
+	File_Write(dir, fn, ContentToWrite);
+}
+
+void FileInterface::File_Write_Program(const FString &FileName, TArray<FString> ContentToWrite) {
+	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
+	FString fn = FileName + FString(PROGRAM_EXTENSION);
+	File_Write(dir, fn, ContentToWrite);
 }
 
 void FileInterface::File_Write(FString& dir, FString& fileName, TArray<FString> txt/*, bool Overwrite*/) {

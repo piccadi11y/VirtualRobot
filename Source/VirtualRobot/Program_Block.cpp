@@ -12,3 +12,7 @@ Program_Block::~Program_Block()
 int Program_Block::AddContents() {
 	return m_Type + m_ID;
 }
+
+FString Program_Block::GetStringBlock() {
+	return FString::FromInt(m_mtr1);
+}

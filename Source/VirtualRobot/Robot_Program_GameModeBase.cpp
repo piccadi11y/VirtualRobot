@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Robot_Program_GameModeBase.h"
+#include "FileInterface.h"
+#include "Program_Block.h"
 
 void ARobot_Program_GameModeBase::BeginPlay() {
 	Super::BeginPlay();
@@ -33,4 +35,17 @@ void ARobot_Program_GameModeBase::CreateBlock(int Type, TArray<int> Inputs) {
 
 void ARobot_Program_GameModeBase::TestShow() {
 	GEngine->AddOnScreenDebugMessage(1, 2.0f, FColor::Green, FString::FromInt(Blocks[0].AddContents()));
+}
+
+void ARobot_Program_GameModeBase::SaveProgram() {
+	FString test1 = "WorkPlz";
+	TArray<FString> stringBlocks{ "5","4","3" };
+	FString blockString;
+	int counter = 0;
+	for (auto blockToGet: Blocks) {
+		stringBlocks[1] = blockToGet.GetStringBlock();
+		
+	}
+	
+	FI->File_Write_Program(test1, stringBlocks);
 }
