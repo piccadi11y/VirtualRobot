@@ -62,7 +62,7 @@ public:
 	TArray<Program_Block> Blocks;
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void CreateBlock(int Type, TArray<int> Inputs);
+		void CreateBlock(TArray<int> Inputs);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void TestShow();

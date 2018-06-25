@@ -2,7 +2,7 @@
 
 #include "Program_Block.h"
 
-Program_Block::Program_Block(int ID, int Type, int mtr1, int mtr2) : m_ID{ ID }, m_Type{ Type }, m_mtr1{ mtr1 }, m_mtr2{ mtr2 } {
+Program_Block::Program_Block(int ID, int mtr1, int mtr2) : m_ID{ ID }, m_mtr1{ mtr1 }, m_mtr2{ mtr2 } {
 }
 
 Program_Block::~Program_Block()
