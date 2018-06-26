@@ -49,42 +49,45 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 
 	/* Declare variable to be used to store LogicBoard pointer. */
 	AActor* LogicBoard = nullptr;
-	FString LogicBoard_Type;
 
 	/* Get type of logic board to be created. */
-	FString SelectedComponent = FindChosenComponent(FString(LOGIC_BOARD_TAG));
+	FString LogicBoard_Type = FindChosenComponent(FString(LOGIC_BOARD_TAG));
 	/* If input isn't empty, try and create correlating logic board. */
-	if (SelectedComponent != FString("")) {
-		if (SelectedComponent == FString(LOGIC_BOARD_TYPE__TEST)) {
+	if (LogicBoard_Type != FString("")) {
+		if (LogicBoard_Type == FString(LOGIC_BOARD_TYPE__TEST)) {
 			/* Call logic board spawn function, store pointer. */
-			LogicBoard = Spawn_LogicBoard(LogicBoard_Test_Mesh, SelectedComponent);
-			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__TEST);
+			LogicBoard = Spawn_LogicBoard(LogicBoard_Test_Mesh, LogicBoard_Type);
 		}
-		else if (SelectedComponent == FString(LOGIC_BOARD_TYPE__BASIC)) {
-			LogicBoard = Spawn_LogicBoard(LogicBoard_Basic_Mesh, SelectedComponent);
-			LogicBoard_Type = FString(LOGIC_BOARD_TYPE__BASIC);
+		else if (LogicBoard_Type == FString(LOGIC_BOARD_TYPE__BASIC)) {
+			LogicBoard = Spawn_LogicBoard(LogicBoard_Basic_Mesh, LogicBoard_Type);
 		}
 	}
 	else GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString("Failed to spawn logic board."));
 
 
-	AActor* NewComponent = nullptr;
+	AActor* Chassis_ptr = nullptr;
 	/* Get the type of chassis to be created. */
-	SelectedComponent = FindChosenComponent(FString(CHASSIS_TAG));
+	FString Chassis_Type = FindChosenComponent(FString(CHASSIS_TAG));
 	/* If input isn't empty, try and create the correlating chassis. */
-	if (SelectedComponent != FString("")) {
-		if (SelectedComponent == FString(CHASSIS_TYPE__SMALL)) {
-			NewComponent = Spawn_Chassis(Chassis_Small_Mesh, SelectedComponent);
+	if (Chassis_Type != FString("")) {
+		if (Chassis_Type == FString(CHASSIS_TYPE__SMALL)) {
+			Chassis_ptr = Spawn_Chassis(Chassis_Small_Mesh, Chassis_Type);
 		}
-		else if (SelectedComponent == FString(CHASSIS_TYPE__MEDIUM)) {
-			NewComponent = Spawn_Chassis(Chassis_Medium_Mesh, SelectedComponent);
+		else if (Chassis_Type == FString(CHASSIS_TYPE__MEDIUM)) {
+			Chassis_ptr = Spawn_Chassis(Chassis_Medium_Mesh, Chassis_Type);
 		}
-		else if (SelectedComponent == FString(CHASSIS_TYPE__LARGE)) {
-			NewComponent = Spawn_Chassis(Chassis_Large_Mesh, SelectedComponent);
+		else if (Chassis_Type == FString(CHASSIS_TYPE__LARGE)) {
+			Chassis_ptr = Spawn_Chassis(Chassis_Large_Mesh, Chassis_Type);
 		}
 	}
 	else GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Red, FString("Failed to spawn chassis."));
-	if (LogicBoard && NewComponent) Cast<ALogicBoard_Base>(LogicBoard)->Set_Chassis(NewComponent, SelectedComponent);
+	if (Chassis_ptr) {
+		FString MotorType = FindChosenComponent(FString(MOTOR_DRIVE_TAG));
+		if (MotorType != FString("")) {
+			if (MotorType == FString(MOTOR_DRIVE_TYPE__BASIC)) Spawn_Motors_Drive(Motor_Drive_Basic_Mesh, Chassis_ptr, Chassis_Type, MotorType);
+		}
+	}
+	if (LogicBoard && Chassis_ptr) Cast<ALogicBoard_Base>(LogicBoard)->Set_Chassis(Chassis_ptr, Chassis_Type);
 
 }
 
@@ -142,6 +145,73 @@ AActor* ASpawnPoint_Base::Spawn_Chassis(UStaticMesh* Mesh, const FString &Type) 
 		}
 	}
 	return nullptr;
+}
+
+void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, const FString &ChassisType, const FString &Type) {
+	FTransform Transform(FRotator(0.f, 0.f, 0.f), FVector(0.f, 0.f, 0.f));
+	if (ChassisType == FString(CHASSIS_TYPE__SMALL)) {
+		AChassis_Small* C = Cast<AChassis_Small>(Chassis);
+		if (Type == FString(MOTOR_DRIVE_TYPE__BASIC)) {
+			AElectricMotor_Drive_Basic* Motor_Left = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			AElectricMotor_Drive_Basic* Motor_Right = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			if (Motor_Left != nullptr) {
+				Motor_Left->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Left, Transform);
+			}
+			if (Motor_Right != nullptr) {
+				Motor_Right->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Right, Transform);
+			}
+			if (Motor_Left) C->Set_Motor_Drive(Motor_Left, Type, EMotor_Drive_Locations::REAR_LEFT_e);
+			if (Motor_Right) C->Set_Motor_Drive(Motor_Right, Type, EMotor_Drive_Locations::REAR_RIGHT_e);
+		}
+	}
+	else if (ChassisType == FString(CHASSIS_TYPE__MEDIUM)) {
+		AChassis_Medium* C = Cast<AChassis_Medium>(Chassis);
+		if (Type == FString(MOTOR_DRIVE_TYPE__BASIC)) {
+			AElectricMotor_Drive_Basic* Motor_Left = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			AElectricMotor_Drive_Basic* Motor_Right = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			if (Motor_Left != nullptr) {
+				Motor_Left->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Left, Transform);
+			}
+			if (Motor_Right != nullptr) {
+				Motor_Right->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Right, Transform);
+			}
+			if (Motor_Left) C->Set_Motor_Drive(Motor_Left, Type, EMotor_Drive_Locations::REAR_LEFT_e);
+			if (Motor_Right) C->Set_Motor_Drive(Motor_Right, Type, EMotor_Drive_Locations::REAR_RIGHT_e);
+		}
+	}
+	else if (ChassisType == FString(CHASSIS_TYPE__LARGE)) {
+		AChassis_Large* C = Cast<AChassis_Large>(Chassis);
+		if (Type == FString(MOTOR_DRIVE_TYPE__BASIC)) {
+			AElectricMotor_Drive_Basic* Motor_Left_Rear = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			AElectricMotor_Drive_Basic* Motor_Right_Rear = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			AElectricMotor_Drive_Basic* Motor_Left_Centre = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			AElectricMotor_Drive_Basic* Motor_Right_Centre = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
+			if (Motor_Left_Rear != nullptr) {
+				Motor_Left_Rear->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Left_Rear, Transform);
+			}
+			if (Motor_Right_Rear != nullptr) {
+				Motor_Right_Rear->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Right_Rear, Transform);
+			}
+			if (Motor_Left_Centre != nullptr) {
+				Motor_Left_Centre->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Left_Centre, Transform);
+			}
+			if (Motor_Right_Centre != nullptr) {
+				Motor_Right_Centre->Set_MeshToUse_Self(Mesh);
+				UGameplayStatics::FinishSpawningActor(Motor_Right_Centre, Transform);
+			}
+			if (Motor_Left_Rear) C->Set_Motor_Drive(Motor_Left_Rear, Type, EMotor_Drive_Locations::REAR_LEFT_e);
+			if (Motor_Right_Rear) C->Set_Motor_Drive(Motor_Right_Rear, Type, EMotor_Drive_Locations::REAR_RIGHT_e);
+			if (Motor_Left_Centre) C->Set_Motor_Drive(Motor_Left_Centre, Type, EMotor_Drive_Locations::CENTRE_LEFT_e);
+			if (Motor_Right_Centre) C->Set_Motor_Drive(Motor_Right_Centre, Type, EMotor_Drive_Locations::CENTRE_RIGHT_e);
+		}
+	}
 }
 
 void ASpawnPoint_Base::LoadRobotData(FString FileName) {

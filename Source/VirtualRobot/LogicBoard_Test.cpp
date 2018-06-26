@@ -22,9 +22,9 @@ void ALogicBoard_Test::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector loc = GetActorLocation();
+	/*FVector loc = GetActorLocation();
 	loc.Z += 0.1f;
-	SetActorLocation(loc);
+	SetActorLocation(loc);*/
 
 }
 

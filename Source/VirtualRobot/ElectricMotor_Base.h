@@ -5,19 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
-#include "Engine.h"
-#include "MacroDefinitions.h"
-#include "ElectricMotor_Drive_Basic.h"
-#include "Chassis_Base.generated.h"
+#include "ElectricMotor_Base.generated.h"
 
 UCLASS()
-class VIRTUALROBOT_API AChassis_Base : public AActor
+class VIRTUALROBOT_API AElectricMotor_Base : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AChassis_Base();
+	AElectricMotor_Base();
 
 protected:
 	// Called when the game starts or when spawned
@@ -28,11 +25,13 @@ protected:
 	/** The mesh being used to represent the object. */
 	UStaticMeshComponent* ObjectMesh;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
-	void AttachToLogicBoard(AActor* LB);
+	void AttachToChassis(AActor* Chassis, const char* Socket);
+
 	
 };

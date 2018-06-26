@@ -36,7 +36,7 @@ void ALogicBoard_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 void ALogicBoard_Base::Set_Chassis(AActor* Actor, FString &Type) {
 	Chassis = Actor;
 	Chassis_Type = Type;
-	AttachChassis();
+	if (Chassis) AttachChassis();
 }
 
 void ALogicBoard_Base::AttachChassis() {

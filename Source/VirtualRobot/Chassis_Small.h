@@ -22,9 +22,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override final;
 
+	/** The left drive motor. */
+	AActor* Motor_Drive_Left;
+	FString Motor_Drive_Left_Type;
+	/** The right drive motor. */
+	AActor* Motor_Drive_Right;
+	FString Motor_Drive_Right_Type;
+	void AttachDriveMotors();
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override final;
 	
-	
+	void Set_Motor_Drive(AActor* Actor, const FString &Type, const int &Loc);
 };

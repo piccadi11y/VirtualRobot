@@ -24,3 +24,23 @@ void AChassis_Large::Tick(float DeltaTime)
 }
 
 
+void AChassis_Large::Set_Motor_Drive(AActor* Actor, const FString &Type, const int &Loc) {
+	switch (Loc) {
+	case int(EMotor_Drive_Locations::REAR_LEFT_e) : Motor_Drive_Left_Rear = Actor; Motor_Drive_Left_Rear_Type = Type; break;
+	case int(EMotor_Drive_Locations::REAR_RIGHT_e) : Motor_Drive_Right_Rear = Actor; Motor_Drive_Right_Rear_Type = Type; break;
+	case int(EMotor_Drive_Locations::CENTRE_LEFT_e) : Motor_Drive_Left_Centre = Actor; Motor_Drive_Left_Centre_Type = Type; break;
+	case int(EMotor_Drive_Locations::CENTRE_RIGHT_e) : Motor_Drive_Right_Centre = Actor; Motor_Drive_Right_Centre_Type = Type; break;
+	default: break;
+	}
+	if (Motor_Drive_Left_Rear && Motor_Drive_Left_Centre && Motor_Drive_Right_Rear && Motor_Drive_Right_Centre) AttachDriveMotors();
+}
+
+void AChassis_Large::AttachDriveMotors() {
+	if (Motor_Drive_Left_Rear_Type == FString(MOTOR_DRIVE_TYPE__BASIC)) Cast<AElectricMotor_Drive_Basic>(Motor_Drive_Left_Rear)->AttachToChassis(Cast<AActor>(this), "Motor_Drive_Left_Rear");
+
+	if (Motor_Drive_Right_Rear_Type == FString(MOTOR_DRIVE_TYPE__BASIC)) Cast<AElectricMotor_Drive_Basic>(Motor_Drive_Right_Rear)->AttachToChassis(Cast<AActor>(this), "Motor_Drive_Right_Rear");
+
+	if (Motor_Drive_Left_Centre_Type == FString(MOTOR_DRIVE_TYPE__BASIC)) Cast<AElectricMotor_Drive_Basic>(Motor_Drive_Left_Centre)->AttachToChassis(Cast<AActor>(this), "Motor_Drive_Left_Centre");
+
+	if (Motor_Drive_Right_Centre_Type == FString(MOTOR_DRIVE_TYPE__BASIC)) Cast<AElectricMotor_Drive_Basic>(Motor_Drive_Right_Centre)->AttachToChassis(Cast<AActor>(this), "Motor_Drive_Right_Centre");
+}

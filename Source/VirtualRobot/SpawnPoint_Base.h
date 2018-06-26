@@ -14,6 +14,7 @@
 #include "Chassis_Small.h"
 #include "Chassis_Medium.h"
 #include "Chassis_Large.h"
+#include "ElectricMotor_Drive_Basic.h"
 #include "MacroDefinitions.h"
 #include "SpawnPoint_Base.generated.h"
 
@@ -56,6 +57,8 @@ protected:
 	AActor* Spawn_LogicBoard(UStaticMesh* Mesh, const FString &Type);
 	/** Spawn the chassis. */
 	AActor* Spawn_Chassis(UStaticMesh* Mesh, const FString &Type);
+	/** Spawn the motors. */
+	void Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, const FString &ChassisType, const FString &Type);
 
 public:	
 	// Called every frame
@@ -77,6 +80,9 @@ public:
 		UStaticMesh* Chassis_Medium_Mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Chassis)
 		UStaticMesh* Chassis_Large_Mesh;
+	/** The static meshes to use for the different drive motors. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = DriveMotors)
+		UStaticMesh* Motor_Drive_Basic_Mesh;
 
 	/** Initialises the spawn sequence. */
 	void InitSpawn(FString FileName_Robot, FString FileName_Program);
