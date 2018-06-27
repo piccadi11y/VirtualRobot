@@ -27,13 +27,13 @@ void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUser
 	}
 }
 
-void ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs) {
+int ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs) {
 
 
 
 	//create a block, initialize it with its variables, then add the block to an array
 	Blocks.Add(Program_Block(blockId,Inputs[0],Inputs[1],Inputs[2],rowCounter, columnCounter));
-	blockIds.Add(blockId++);
+	blockIds.Add(blockId);
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("OCOLUMN: ") + FString::FromInt(columnCounter));
 	if (GEngine)
@@ -50,6 +50,7 @@ void ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs) {
 		if (GEngine)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
 	}
+	return blockId++;
 }
 
 void ARobot_Program_GameModeBase::TestShow() {

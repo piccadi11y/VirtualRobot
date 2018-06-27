@@ -69,7 +69,7 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void CreateBlock(TArray<int> Inputs);
+		int CreateBlock(TArray<int> Inputs);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void TestShow();

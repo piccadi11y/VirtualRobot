@@ -15,5 +15,5 @@ FString Program_Block::GetStringBlock() {
 }
 
 TArray<int> Program_Block::GetInfoForBoxes() {
-	return { m_mtr1,m_mtr2,m_duration };
+	return { m_mtr1, m_mtr2, m_duration };
 }
