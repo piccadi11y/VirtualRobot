@@ -28,11 +28,28 @@ void ARobot_Program_GameModeBase::ChangeRobotProgrammingWidget(TSubclassOf<UUser
 }
 
 void ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs) {
+
+
+
+	//create a block, initialize it with its variables, then add the block to an array
+	Blocks.Add(Program_Block(blockId,Inputs[0],Inputs[1],Inputs[2],rowCounter, columnCounter));
+	blockIds.Add(blockId++);
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("OCOLUMN: ") + FString::FromInt(columnCounter));
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("ORow: ") + FString::FromInt(rowCounter));
 	
-	Blocks.Add(Program_Block(blockId++,Inputs[0],Inputs[1],Inputs[2]));
-	//if (GEngine)
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::FromInt(Inputs[1]));
-	
+	if (columnCounter % 3 == 0 && columnCounter != 0) {
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("mdoulus: ") + FString::FromInt(columnCounter % 3));
+		columnCounter = 0;
+		++rowCounter;
+		
+	} else {
+		++columnCounter;
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
+	}
 }
 
 void ARobot_Program_GameModeBase::TestShow() {
@@ -44,10 +61,27 @@ void ARobot_Program_GameModeBase::SaveProgram() {
 	TArray<FString> stringBlocks;
 	FString blockString;
 	
+	//for each block in the array get all of its elements and turn them into one string, and add that string to the array
 	for (auto blockToGet: Blocks) {
 		blockString = blockToGet.GetStringBlock();
 		stringBlocks.Add(blockString);
 	}
 	
 	FI->File_Write_Program(test1, stringBlocks);
+}
+
+int ARobot_Program_GameModeBase::getRow() {
+	if(GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Row: ") + FString::FromInt(rowCounter));
+	return rowCounter;
+}
+int ARobot_Program_GameModeBase::getColumn() {
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue,TEXT("COLUMN: ") + FString::FromInt(columnCounter));
+	return columnCounter;
+}
+
+TArray<int> ARobot_Program_GameModeBase::getBlockInfo(int blockPosition) {
+	TArray<int> blockStuff = Blocks[blockPosition].GetInfoForBoxes();
+	return blockStuff;
 }

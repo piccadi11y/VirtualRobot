@@ -41,6 +41,11 @@ protected:
 
 	TArray<Program_Block> Blocks;
 
+	TArray<int> blockIds;
+
+	int rowCounter = 0;
+	int columnCounter = 0;
+
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
@@ -71,5 +76,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void SaveProgram();
-	
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		int getRow();
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		int getColumn();
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		 TArray<int> getBlockInfo(int blockPosition);
 };
