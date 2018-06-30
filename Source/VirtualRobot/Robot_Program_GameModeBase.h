@@ -46,6 +46,9 @@ protected:
 	int rowCounter = 0;
 	int columnCounter = 0;
 
+	int getBlockPosition(int ID);
+
+
 public:
 	/** Remove the current menu widget and create a new one from the specified class, if provided. */
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
@@ -69,7 +72,7 @@ public:
 	
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		int CreateBlock(TArray<int> Inputs);
+		int CreateBlock(TArray<int> Inputs, FString blockType);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void TestShow();
@@ -85,4 +88,12 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		 TArray<int> getBlockInfo(int blockPosition);
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		FString callGetBlockType(int ID);
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void updateBlock(int ID, TArray<int> Inputs);
+
+
 };
