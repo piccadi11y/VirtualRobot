@@ -47,8 +47,8 @@ int ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs, FString blockTy
 		
 	} else {
 		++columnCounter;
-		//if (GEngine)
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
 	}
 	return blockId++;
 }
@@ -71,14 +71,14 @@ void ARobot_Program_GameModeBase::SaveProgram() {
 	FI->File_Write_Program(test1, stringBlocks);
 }
 
-int ARobot_Program_GameModeBase::getRow() {
-	//if(GEngine)
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Row: ") + FString::FromInt(rowCounter));
+int ARobot_Program_GameModeBase::getRow(int ID) {
+	int blockPosition = getBlockPosition(ID);
+	int rowCounter = Blocks[blockPosition].GetRow();
 	return rowCounter;
 }
-int ARobot_Program_GameModeBase::getColumn() {
-	//if (GEngine)
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue,TEXT("COLUMN: ") + FString::FromInt(columnCounter));
+int ARobot_Program_GameModeBase::getColumn(int ID) {
+	int blockPosition = getBlockPosition(ID);
+	int columnCounter = Blocks[blockPosition].GetColumn();
 	return columnCounter;
 }
 

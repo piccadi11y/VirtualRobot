@@ -27,3 +27,11 @@ void Program_Block::UpdateBlock(int duration, int mtr1, int mtr2)  {
 FString Program_Block::GetBlockType() {
 	return { m_blockType };
 }
+
+int Program_Block::GetColumn() {
+	return m_column;
+}
+
+int Program_Block::GetRow() {
+	return m_row;
+}

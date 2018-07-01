@@ -81,10 +81,11 @@ public:
 		void SaveProgram();
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		int getRow();
+		int getRow(int ID);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		int getColumn();
+		int getColumn(int ID);
+
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		int getBlockPosition(int ID);
 

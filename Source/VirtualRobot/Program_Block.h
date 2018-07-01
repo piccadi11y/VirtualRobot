@@ -20,6 +20,8 @@ public:
 	Program_Block(int ID,int duration, int mtr1, int mtr2, int row, int column, FString blockType);
 
 	FString GetStringBlock();
+	int GetColumn();
+	int GetRow();
 	TArray<int> GetInfoForBoxes();
 	FString GetBlockType();
 	void UpdateBlock(int duration, int mtr1, int mtr2);
