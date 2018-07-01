@@ -51,6 +51,10 @@ void AMainMenu_GameModeBase::VerifyCreateDefaultFiles() {
 	if (!FI->CheckFileExists(absR)) FI->File_Write(pR, fnR, {	FString("[Logic Board]"),
 																FString("Test"),
 																FString("[Chassis]"),
-																FString("Small")});
+																FString("Small"),
+																FString("[Drive Motors]"),
+																FString("Basic"),
+																FString("[Tyres]"),
+																FString("Basic")});
 	if (!FI->CheckFileExists(absP)) FI->File_Write(pP, fnP, { FString("Default"), FString("Program") });
 }
