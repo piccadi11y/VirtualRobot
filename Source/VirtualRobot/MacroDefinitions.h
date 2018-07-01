@@ -13,6 +13,8 @@
 #define CHASSIS_TYPE__LARGE_MOTOR_COUNT 4
 #define MOTOR_DRIVE_TAG "[Drive Motors]"
 #define MOTOR_DRIVE_TYPE__BASIC "Basic"
+#define TYRE_TAG "[Tyres]"
+#define TYRE_TYPE__BASIC "Basic"
 
 #define BASE_PATH "C:/VirtualRobot"
 #define RELATIVE_PATH_ROBOTS "Robots"

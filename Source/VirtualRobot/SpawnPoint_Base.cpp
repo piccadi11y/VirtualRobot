@@ -81,10 +81,14 @@ void ASpawnPoint_Base::InitSpawn(FString FileName_Robot, FString FileName_Progra
 		}
 	}
 	else GEngine->AddOnScreenDebugMessage(-1, 2.5f, FColor::Red, FString("Failed to spawn chassis."));
+
 	if (Chassis_ptr) {
 		FString MotorType = FindChosenComponent(FString(MOTOR_DRIVE_TAG));
+		FString TyreType = FindChosenComponent(FString(TYRE_TAG));
 		if (MotorType != FString("")) {
-			if (MotorType == FString(MOTOR_DRIVE_TYPE__BASIC)) Spawn_Motors_Drive(Motor_Drive_Basic_Mesh, Chassis_ptr, Chassis_Type, MotorType);
+			if (TyreType == FString(TYRE_TYPE__BASIC)) {
+				if (MotorType == FString(MOTOR_DRIVE_TYPE__BASIC)) Spawn_Motors_Drive(Motor_Drive_Basic_Mesh, Tyre_Basic_Mesh, Chassis_ptr, Chassis_Type, MotorType);
+			}
 		}
 	}
 	if (LogicBoard && Chassis_ptr) Cast<ALogicBoard_Base>(LogicBoard)->Set_Chassis(Chassis_ptr, Chassis_Type);
@@ -147,7 +151,7 @@ AActor* ASpawnPoint_Base::Spawn_Chassis(UStaticMesh* Mesh, const FString &Type) 
 	return nullptr;
 }
 
-void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, const FString &ChassisType, const FString &Type) {
+void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh_Motor, UStaticMesh* Mesh_Tyre, AActor* Chassis, const FString &ChassisType, const FString &Type) {
 	FTransform Transform(FRotator(0.f, 0.f, 0.f), FVector(0.f, 0.f, 0.f));
 	if (ChassisType == FString(CHASSIS_TYPE__SMALL)) {
 		AChassis_Small* C = Cast<AChassis_Small>(Chassis);
@@ -155,11 +159,13 @@ void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, co
 			AElectricMotor_Drive_Basic* Motor_Left = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			AElectricMotor_Drive_Basic* Motor_Right = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			if (Motor_Left != nullptr) {
-				Motor_Left->Set_MeshToUse_Self(Mesh);
+				Motor_Left->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Left->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Left, Transform);
 			}
 			if (Motor_Right != nullptr) {
-				Motor_Right->Set_MeshToUse_Self(Mesh);
+				Motor_Right->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Right->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Right, Transform);
 			}
 			if (Motor_Left) C->Set_Motor_Drive(Motor_Left, Type, EMotor_Drive_Locations::REAR_LEFT_e);
@@ -172,11 +178,13 @@ void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, co
 			AElectricMotor_Drive_Basic* Motor_Left = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			AElectricMotor_Drive_Basic* Motor_Right = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			if (Motor_Left != nullptr) {
-				Motor_Left->Set_MeshToUse_Self(Mesh);
+				Motor_Left->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Left->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Left, Transform);
 			}
 			if (Motor_Right != nullptr) {
-				Motor_Right->Set_MeshToUse_Self(Mesh);
+				Motor_Right->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Right->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Right, Transform);
 			}
 			if (Motor_Left) C->Set_Motor_Drive(Motor_Left, Type, EMotor_Drive_Locations::REAR_LEFT_e);
@@ -191,19 +199,23 @@ void ASpawnPoint_Base::Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, co
 			AElectricMotor_Drive_Basic* Motor_Left_Centre = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			AElectricMotor_Drive_Basic* Motor_Right_Centre = Cast<AElectricMotor_Drive_Basic>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AElectricMotor_Drive_Basic::StaticClass(), Transform));
 			if (Motor_Left_Rear != nullptr) {
-				Motor_Left_Rear->Set_MeshToUse_Self(Mesh);
+				Motor_Left_Rear->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Left_Rear->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Left_Rear, Transform);
 			}
 			if (Motor_Right_Rear != nullptr) {
-				Motor_Right_Rear->Set_MeshToUse_Self(Mesh);
+				Motor_Right_Rear->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Right_Rear->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Right_Rear, Transform);
 			}
 			if (Motor_Left_Centre != nullptr) {
-				Motor_Left_Centre->Set_MeshToUse_Self(Mesh);
+				Motor_Left_Centre->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Left_Centre->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Left_Centre, Transform);
 			}
 			if (Motor_Right_Centre != nullptr) {
-				Motor_Right_Centre->Set_MeshToUse_Self(Mesh);
+				Motor_Right_Centre->Set_MeshToUse_Self(Mesh_Motor);
+				Motor_Right_Centre->Set_MeshToUse_Tyre(Mesh_Tyre);
 				UGameplayStatics::FinishSpawningActor(Motor_Right_Centre, Transform);
 			}
 			if (Motor_Left_Rear) C->Set_Motor_Drive(Motor_Left_Rear, Type, EMotor_Drive_Locations::REAR_LEFT_e);

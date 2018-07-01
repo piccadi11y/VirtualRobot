@@ -11,6 +11,8 @@ AElectricMotor_Base::AElectricMotor_Base()
 
 	ObjectMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = ObjectMesh;
+	Tyre = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tyre"));
+	Tyre->AttachToComponent(RootComponent, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Wheel"));
 }
 
 // Called when the game starts or when spawned
@@ -19,6 +21,7 @@ void AElectricMotor_Base::BeginPlay()
 	Super::BeginPlay();
 	
 	ObjectMesh->SetStaticMesh(MeshToUse_Self);
+	Tyre->SetStaticMesh(MeshToUse_Tyre);
 }
 
 // Called every frame
@@ -34,4 +37,8 @@ void AElectricMotor_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
 
 void AElectricMotor_Base::AttachToChassis(AActor* Chassis, const char* Socket) {
 	this->AttachToComponent(Chassis->GetRootComponent(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), Socket);
+}
+
+void AElectricMotor_Base::Set_MeshToUse_Tyre(UStaticMesh* Mesh) {
+	MeshToUse_Tyre = Mesh;
 }

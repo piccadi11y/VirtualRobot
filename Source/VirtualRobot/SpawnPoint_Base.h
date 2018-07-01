@@ -58,7 +58,7 @@ protected:
 	/** Spawn the chassis. */
 	AActor* Spawn_Chassis(UStaticMesh* Mesh, const FString &Type);
 	/** Spawn the motors. */
-	void Spawn_Motors_Drive(UStaticMesh* Mesh, AActor* Chassis, const FString &ChassisType, const FString &Type);
+	void Spawn_Motors_Drive(UStaticMesh* Mesh_Motor, UStaticMesh* Mesh_Tyre, AActor* Chassis, const FString &ChassisType, const FString &Type);
 
 public:	
 	// Called every frame
@@ -83,6 +83,9 @@ public:
 	/** The static meshes to use for the different drive motors. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = DriveMotors)
 		UStaticMesh* Motor_Drive_Basic_Mesh;
+	/** The static meshes to use for the tyres. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Tyres)
+		UStaticMesh* Tyre_Basic_Mesh;
 
 	/** Initialises the spawn sequence. */
 	void InitSpawn(FString FileName_Robot, FString FileName_Program);

@@ -22,8 +22,12 @@ protected:
 
 	/** The static mesh that is used to represent the component's mesh. */
 	UStaticMesh* MeshToUse_Self;
-	/** The mesh being used to represent the object. */
+	/** The static mesh to use for the tyre. */
+	UStaticMesh* MeshToUse_Tyre;
+	/** The component being used to represent the object. */
 	UStaticMeshComponent* ObjectMesh;
+	/** The component being used to represent the tyre. */
+	UStaticMeshComponent* Tyre;
 
 
 public:	
@@ -31,6 +35,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
+	void Set_MeshToUse_Tyre(UStaticMesh* Mesh);
 	void AttachToChassis(AActor* Chassis, const char* Socket);
 
 	
