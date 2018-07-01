@@ -237,6 +237,6 @@ void ASpawnPoint_Base::LoadProgramData(FString FileName) {
 }
 
 FString ASpawnPoint_Base::FindChosenComponent(const FString &ComponentTag) {
-	for (int i{ 0 }; i < Data_Robot.Num(); i++) if (Data_Robot[i] == ComponentTag) return Data_Robot[++i];
+	for (int i{ 0 }; i < Data_Robot.Num(); i++) if (Data_Robot[i] == ComponentTag && i + 1 != Data_Robot.Num()) return Data_Robot[++i];
 	return FString("");
 }
