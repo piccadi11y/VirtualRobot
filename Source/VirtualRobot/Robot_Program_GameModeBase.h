@@ -46,7 +46,7 @@ protected:
 	int rowCounter = 0;
 	int columnCounter = 0;
 
-	int getBlockPosition(int ID);
+	
 
 
 public:
@@ -85,6 +85,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		int getColumn();
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		int getBlockPosition(int ID);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		 TArray<int> getBlockInfo(int blockPosition);
@@ -95,5 +97,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void updateBlock(int ID, TArray<int> Inputs);
 
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void deleteBlock(int ID);
 
 };

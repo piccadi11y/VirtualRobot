@@ -106,3 +106,10 @@ void ARobot_Program_GameModeBase::updateBlock(int ID, TArray<int> Inputs) {
 	int blockPosition = getBlockPosition(ID);
 	Blocks[blockPosition].UpdateBlock(Inputs[0], Inputs[1], Inputs[2]);
 }
+
+void ARobot_Program_GameModeBase::deleteBlock(int ID) {
+	int blockPosition = getBlockPosition(ID);
+	Blocks.RemoveAt(blockPosition);
+	blockIds.RemoveAt(blockPosition);
+	
+}
