@@ -8,6 +8,7 @@
 #include "Program_Block.h"
 #include "Engine.h"
 #include "FileInterface.h"
+#include "MacroDefinitions.h"
 #include "Robot_Program_GameModeBase.generated.h"
 
 
@@ -39,9 +40,13 @@ protected:
 
 	FileInterface* FI;
 
+	/** List of all program files that can be loaded. */
+	TArray<FString> FilesAvailable_Program;
+
 	TArray<Program_Block> Blocks;
 
 	TArray<int> blockIds;
+
 
 	int rowCounter = 0;
 	int columnCounter = 0;
@@ -75,10 +80,7 @@ public:
 		int CreateBlock(TArray<int> Inputs, FString blockType);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void TestShow();
-
-	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
-		void SaveProgram();
+		void SaveProgram(FString fileName);
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		int getRow(int ID);
@@ -101,4 +103,20 @@ public:
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void deleteBlock(int ID);
 
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		TArray<FString> readProgramFile(FString fileName);
+
+	/** Load Program files. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		void LoadAvailableFiles_Program();
+
+	/** Getter of the Program files list. */
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		TArray<FString> GetAvailableFiles_Program();
+
+	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
+		TArray<int> splitString(FString stringToSplit);
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		void resetBlocks();
 };

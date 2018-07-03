@@ -35,7 +35,7 @@ int ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs, FString blockTy
 	Blocks.Add(Program_Block(blockId,Inputs[0],Inputs[1],Inputs[2],rowCounter, columnCounter, blockType));
 	blockIds.Add(blockId);
 	//if (GEngine)
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("OCOLUMN: ") + FString::FromInt(columnCounter));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("mtr1: ") + FString::FromInt(Inputs[0]));
 	//if (GEngine)
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("ORow: ") + FString::FromInt(rowCounter));
 	
@@ -47,18 +47,14 @@ int ARobot_Program_GameModeBase::CreateBlock(TArray<int> Inputs, FString blockTy
 		
 	} else {
 		++columnCounter;
-		if (GEngine)
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
+		//if (GEngine)
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("++"));
 	}
 	return blockId++;
 }
 
-void ARobot_Program_GameModeBase::TestShow() {
-	
-}
 
-void ARobot_Program_GameModeBase::SaveProgram() {
-	FString test1 = "WorkPlz";
+void ARobot_Program_GameModeBase::SaveProgram(FString fileName) {
 	TArray<FString> stringBlocks;
 	FString blockString;
 	
@@ -67,8 +63,8 @@ void ARobot_Program_GameModeBase::SaveProgram() {
 		blockString = blockToGet.GetStringBlock();
 		stringBlocks.Add(blockString);
 	}
-	
-	FI->File_Write_Program(test1, stringBlocks);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("mtr1: ") + blockString);
+	FI->File_Write_Program(fileName, stringBlocks);
 }
 
 int ARobot_Program_GameModeBase::getRow(int ID) {
@@ -112,4 +108,55 @@ void ARobot_Program_GameModeBase::deleteBlock(int ID) {
 	Blocks.RemoveAt(blockPosition);
 	blockIds.RemoveAt(blockPosition);
 	
+}
+
+TArray<FString> ARobot_Program_GameModeBase::GetAvailableFiles_Program() {
+	/* Returns the list of available robot files to caller. */
+	return FilesAvailable_Program;
+}
+
+void ARobot_Program_GameModeBase::LoadAvailableFiles_Program() {
+	/* Sets the program files availble to the results of the file interface's search. */
+	FilesAvailable_Program = FI->LoadFileList_Program();
+}
+
+TArray<FString> ARobot_Program_GameModeBase::readProgramFile(FString fileName) {
+
+	if (fileName.Contains(FString(PROGRAM_EXTENSION))) {
+		fileName.RemoveAt(fileName.Len() - PROGRAM_EXTENSION_LENGTH, PROGRAM_EXTENSION_LENGTH);
+	}
+	TArray<FString> filePrintOut = FI->File_Read_Program(fileName);
+	
+	
+	
+	return filePrintOut;
+}
+
+TArray<int> ARobot_Program_GameModeBase::splitString(FString stringToSplit) {
+	TArray<FString> splitted;
+	TArray<int> splittedInt;
+	for (int j = 0; j < stringToSplit.Len() - 2; ++j) {
+		splitted.Add("");
+	}
+
+	int counter = 0;
+	for (auto character : stringToSplit) {
+
+		if (character == ',') {
+			splittedInt.Add(FCString::Atoi(*splitted[counter]));
+			++counter;
+		} else {
+			splitted[counter].AppendChar(character);
+		}
+	}
+	splittedInt.Add(FCString::Atoi(*splitted[counter]));
+	return splittedInt;
+}
+
+void ARobot_Program_GameModeBase::resetBlocks() {
+	Blocks.Empty();
+	blockIds.Empty();
+	blockId = 0;
+	rowCounter = 0;
+	columnCounter = 0;
 }
