@@ -47,6 +47,10 @@ protected:
 
 	TArray<int> blockIds;
 
+	FString blockTypeHolder;
+
+
+
 
 	int rowCounter = 0;
 	int columnCounter = 0;
@@ -116,6 +120,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = SelectionMenu)
 		TArray<int> splitString(FString stringToSplit);
+
+	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
+		FString getBlockTypeHolder();
 
 	UFUNCTION(BlueprintCallable, Category = RobotProgramming)
 		void resetBlocks();

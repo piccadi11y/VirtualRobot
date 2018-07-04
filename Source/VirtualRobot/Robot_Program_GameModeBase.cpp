@@ -135,13 +135,15 @@ TArray<FString> ARobot_Program_GameModeBase::readProgramFile(FString fileName) {
 TArray<int> ARobot_Program_GameModeBase::splitString(FString stringToSplit) {
 	TArray<FString> splitted;
 	TArray<int> splittedInt;
-	for (int j = 0; j < stringToSplit.Len() - 2; ++j) {
+	int length = stringToSplit.Len();
+	FString blockType = "";
+	for (int j = 0; j < length - 2 ; ++j) {
 		splitted.Add("");
 	}
 
 	int counter = 0;
-	for (auto character : stringToSplit) {
 
+	for (auto character : stringToSplit) {
 		if (character == ',') {
 			splittedInt.Add(FCString::Atoi(*splitted[counter]));
 			++counter;
@@ -149,7 +151,12 @@ TArray<int> ARobot_Program_GameModeBase::splitString(FString stringToSplit) {
 			splitted[counter].AppendChar(character);
 		}
 	}
-	splittedInt.Add(FCString::Atoi(*splitted[counter]));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Purple, splitted[3]);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Purple,FString::FromInt(counter));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Purple, FString::FromInt(length));
+	
+	
+	blockTypeHolder = splitted[3];
 	return splittedInt;
 }
 
@@ -159,4 +166,8 @@ void ARobot_Program_GameModeBase::resetBlocks() {
 	blockId = 0;
 	rowCounter = 0;
 	columnCounter = 0;
+}
+
+FString ARobot_Program_GameModeBase::getBlockTypeHolder() {
+	return blockTypeHolder;
 }

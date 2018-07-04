@@ -11,7 +11,7 @@ Program_Block::~Program_Block()
 
 FString Program_Block::GetStringBlock() {
 
-	return FString::FromInt(m_mtr1) + "," + FString::FromInt(m_mtr2) + "," + FString::FromInt(m_duration);
+	return FString::FromInt(m_mtr1) + "," + FString::FromInt(m_mtr2) + "," + FString::FromInt(m_duration) + "," + m_blockType;
 }
 
 TArray<int> Program_Block::GetInfoForBoxes() {
