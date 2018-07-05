@@ -34,8 +34,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/** Set the mesh to use for representing self. */
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
+	/** Set the mesh to use for representing tyre. */
 	void Set_MeshToUse_Tyre(UStaticMesh* Mesh);
+	/** Attach to the chassis passed through. */
 	void AttachToChassis(AActor* Chassis, const char* Socket);
 
 	

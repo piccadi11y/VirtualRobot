@@ -33,12 +33,15 @@ protected:
 	/** The chassis the logic board is attached to. */
 	AActor* Chassis;
 	FString Chassis_Type;
+	/** Attach the chassis to self */
 	void AttachChassis();
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/** set the mesh to use for self */
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
+	/** set the chassis to use */
 	void Set_Chassis(AActor* Actor, FString &Type);
 };

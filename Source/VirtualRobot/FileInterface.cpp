@@ -4,6 +4,7 @@
 
 TArray<FString> FileInterface::File_Read(const FString& dir, const FString& fileName) const {
 	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
+	/* set absolute directory path */
 	FString abs = dir + "/" + fileName;
 	TArray<FString> res;
 
@@ -18,31 +19,40 @@ TArray<FString> FileInterface::File_Read(const FString& dir, const FString& file
 }
 
 TArray<FString> FileInterface::File_Read_Robot(const FString &FileName) const {
+	/* set paths */
 	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
 	FString fn = FileName + FString(ROBOT_EXTENSION);
+	/* return the supplied file's contents */
 	return File_Read(dir, fn);
 }
 
 TArray<FString> FileInterface::File_Read_Program(const FString &FileName) const {
+	/* set paths */
 	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
 	FString fn = FileName + FString(PROGRAM_EXTENSION);
+	/* return the supplied file's contents */
 	return File_Read(dir, fn);
 }
 
 void FileInterface::File_Write_Robot(const FString &FileName, TArray<FString> ContentToWrite) {
+	/* set paths */
 	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
 	FString fn = FileName + FString(ROBOT_EXTENSION);
+	/* write supplied content to supplied file */
 	File_Write(dir, fn, ContentToWrite);
 }
 
 void FileInterface::File_Write_Program(const FString &FileName, TArray<FString> ContentToWrite) {
+	/* set paths */
 	FString dir = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
 	FString fn = FileName + FString(PROGRAM_EXTENSION);
+	/* write supplied content to supplied file */
 	File_Write(dir, fn, ContentToWrite);
 }
 
 void FileInterface::File_Write(FString& dir, FString& fileName, TArray<FString> txt/*, bool Overwrite*/) {
 	IPlatformFile& PF = FPlatformFileManager::Get().GetPlatformFile();
+	/* set path */
 	FString abs = dir + "/" + fileName;
 
 	bool exists = PF.DirectoryExists(*dir);
@@ -87,14 +97,14 @@ TArray<FString> FileInterface::LoadFileList_Program() {
 
 bool FileInterface::VerifyOrCreateDefaultDirectories() const {
 	FString absRbt = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS);
-	FString abePrgm = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
+	FString absPrgm = FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS);
 
 	if (!VerifyOrCreateDirectory(FString(BASE_PATH))) return false;
 	else {
 		/* Verify/Create robot default directory. */
-		if (!VerifyOrCreateDirectory(FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_ROBOTS))) return false;
+		if (!VerifyOrCreateDirectory(absRbt)) return false;
 		/* Verify/Create program default directory. */
-		if (!VerifyOrCreateDirectory(FString(BASE_PATH) + "/" + FString(RELATIVE_PATH_PROGRAMS))) return false;
+		if (!VerifyOrCreateDirectory(absPrgm)) return false;
 	} 
 	
 	return true;

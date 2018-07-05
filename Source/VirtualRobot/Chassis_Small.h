@@ -28,11 +28,13 @@ protected:
 	/** The right drive motor. */
 	AActor* Motor_Drive_Right;
 	FString Motor_Drive_Right_Type;
+	/** Attach the motors. */
 	void AttachDriveMotors();
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override final;
-	
+
+	/** Set class' pointers to motors. */
 	void Set_Motor_Drive(AActor* Actor, const FString &Type, const int &Loc);
 };

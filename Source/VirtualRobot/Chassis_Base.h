@@ -32,7 +32,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/** Set the mesh that the object will use to represent self. */
 	void Set_MeshToUse_Self(UStaticMesh* Mesh);
+	/** Attach self to the supplied logic board. */
 	void AttachToLogicBoard(AActor* LB);
 	
 };
