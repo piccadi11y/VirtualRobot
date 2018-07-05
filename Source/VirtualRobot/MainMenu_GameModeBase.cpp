@@ -56,5 +56,5 @@ void AMainMenu_GameModeBase::VerifyCreateDefaultFiles() {
 																FString("Basic"),
 																FString("[Tyres]"),
 																FString("Basic")});
-	if (!FI->CheckFileExists(absP)) FI->File_Write(pP, fnP, { FString("Default"), FString("Program") });
+	if (!FI->CheckFileExists(absP)) FI->File_Write(pP, fnP, { FString("100,100,20,Forward"), FString("11,12,9,Backward"), FString("50,25,15,Turning") , FString("1,1,3,Forward") });
 }
