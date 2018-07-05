@@ -20,6 +20,7 @@ void AChassis_Base::BeginPlay()
 	Super::BeginPlay();
 	
 	ObjectMesh->SetStaticMesh(MeshToUse_Self);
+	ObjectMesh->SetSimulatePhysics(true);
 }
 
 // Called every frame

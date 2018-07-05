@@ -19,6 +19,7 @@ void ALogicBoard_Base::BeginPlay()
 	Super::BeginPlay();
 
 	ObjectMesh->SetStaticMesh(MeshToUse_Self);
+	ObjectMesh->SetSimulatePhysics(true);
 	
 }
 

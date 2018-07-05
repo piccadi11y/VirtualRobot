@@ -12,7 +12,7 @@ AElectricMotor_Base::AElectricMotor_Base()
 	ObjectMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = ObjectMesh;
 	Tyre = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tyre"));
-	Tyre->AttachToComponent(RootComponent, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Wheel"));
+	Tyre->AttachToComponent(ObjectMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Wheel"));
 }
 
 // Called when the game starts or when spawned
@@ -21,7 +21,9 @@ void AElectricMotor_Base::BeginPlay()
 	Super::BeginPlay();
 	
 	ObjectMesh->SetStaticMesh(MeshToUse_Self);
+	ObjectMesh->SetSimulatePhysics(true);
 	Tyre->SetStaticMesh(MeshToUse_Tyre);
+	Tyre->SetSimulatePhysics(true);
 }
 
 // Called every frame
@@ -29,6 +31,7 @@ void AElectricMotor_Base::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Tyre->AddLocalRotation(FRotator(0.f, 1.f, 0.f));
 }
 
 void AElectricMotor_Base::Set_MeshToUse_Self(UStaticMesh* Mesh) {
