@@ -17,12 +17,18 @@ protected:
 public:
 
 
-	Program_Block(int ID,int duration, int mtr1, int mtr2, int row, int column, FString blockType);
-
+	Program_Block(int ID, int mtr1, int mtr2, int duration, int row, int column, FString blockType);
+	//turn the members to one long string that can be written to the file
 	FString GetStringBlock();
+	//get column and row for block position on screen
+	int GetColumn();
+	int GetRow();
+	//get the members that appear in the textboxes
 	TArray<int> GetInfoForBoxes();
+	//get the type of the block
 	FString GetBlockType();
-	void UpdateBlock(int duration, int mtr1, int mtr2);
+	//update the block with new values
+	void UpdateBlock(int mtr1, int mtr2, int duration);
 	~Program_Block();
 
 };
