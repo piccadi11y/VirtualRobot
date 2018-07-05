@@ -13,7 +13,7 @@ AElectricMotor_Base::AElectricMotor_Base()
 	ObjectMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = ObjectMesh;
 	Tyre = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tyre"));
-	Tyre->AttachToComponent(ObjectMesh, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("Wheel"));
+	Tyre->SetupAttachment(ObjectMesh, TEXT("Wheel"));
 }
 
 // Called when the game starts or when spawned
